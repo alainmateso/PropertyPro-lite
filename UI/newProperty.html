@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PropertyPro-Lite</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <nav class="top-nav">
+                <ul>
+                    <li><a href="agentLandingPage.html"><i class="fas fa-home"></i>Properties</a></li>
+                    <li class="active"><a href="#newProperty"><i class="fas fa-plus-square"></i></i>Create New</a>
+                    </li>
+                    <li class="top-right-button"><a href="index.html"><i class="fas fa-power-off"></i>Logout</a></li>
+                    <li class="top-right-button"><a href="#userProfile"><i class="far fa-user"></i>Profile</a></li>
+
+                </ul>
+            </nav>
+        </div>
+
+        <div class="content">
+            <section class="contentSection">
+                <div class="propertyForm">
+                    <h3 class="welcomeMessage">Fill this form to post a new property advert</h3>
+                    <form action="">
+                        <label for="name">Name</label>
+                        <input type="text" name="propName" id="" required>
+                        <label for="price">Price in Rwf</label>
+                        <input type="text" name="propPrice" id="" required>
+                        <label for="state">State</label>
+                        <input type="text" name="propState" id="" required>
+                        <label for="city">City</label>
+                        <input type="text" name="propCity" id="" required>
+                        <label for="address">Address</label>
+                        <input type="text" name="propAddress" id="" required>
+                        <label for="pictures">Add picures</label>
+                        <input type="file" name="propImage" id="" required>
+                        <select name="propType" id="propSelect" required>
+                            <option value="select property type" selected disabled>Select property type</option>
+                            <option value="1beddroom">1 Bedroom</option>
+                            <option value="2bedroom">2 Bedroom</option>
+                            <option value="3bedroom">3 bedroom</option>
+                            <option value="mini">Mini Flat</option>
+                        </select>
+                        <textarea name="propDescription" id="propDescription" cols="30" rows="10"
+                            placeholder="Describe your property..."></textarea>
+                        <button class="goButton">Post property</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <div class="footer">
+            <footer>
+                <p>PropertyPro-Lite 2019 @Andela Bootcamp</p>
+            </footer>
+        </div>
+    </div>
+
+</body>
+
+</html>
