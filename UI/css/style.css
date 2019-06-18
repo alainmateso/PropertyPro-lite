@@ -4,10 +4,15 @@
     padding: 0;
 }
 body{
-    background-color: whitesmoke;
+    background-color: #efefef;
+    font-family: sans-serif
 }
 i{
     margin-right: 5px;
+}
+a{
+    text-decoration: none;
+    color: inherit;
 }
 button{
     margin: 3px;
@@ -15,19 +20,13 @@ button{
 .container{
     width: 100%;
     margin: auto;
+    background-color: #efefef;
+}
+.headerArea{
+    width: 100%;
+    height: 5rem;
     background-color: black;
 }
-/* .logoDiv{
-    width: 100%;
-    height: 100px;
-    border: 1px solid black;
-    background-color: whitesmoke;
-    position: sticky;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1;
-} */
 .header{
     width: 100%;
     height: 15%;
@@ -37,6 +36,20 @@ button{
     right: 0;
     left: 0;
     z-index: 1;
+    border-bottom: 2px solid gray;
+    box-shadow: 3px 0 20px black;
+}
+.logoArea{
+    width: 25%;
+    height: 100%;
+    float: left;
+    color: white;
+    size: 50rem;
+    margin-left: 5%;
+    margin-right: 3rem;
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 0.5%;
 }
 .top-nav{
     height: 100%;
@@ -54,6 +67,7 @@ button{
 .top-nav li{
     float: left;
     height: 100%;
+    margin-right: 2px;
 }
 .top-nav li a {
   display: inline-block;
@@ -65,6 +79,7 @@ button{
 }
 .top-nav select{
     height: 50.5px;
+    width: 150px;
     font-size: 15px;
     border: none;
 }
@@ -88,7 +103,7 @@ button{
     height: 100%;
     padding: 1%;
     margin: auto;
-    background-color: white;
+    background-color: #efefef;
     display: grid;
     grid-template-columns:repeat(auto-fit, minmax(15rem, 1fr));
     grid-gap: 1em;
@@ -113,7 +128,8 @@ button{
 }
 
 .propPhoto p{
-    font-size: 20px;
+    font-size: 15px;
+    font-weight: bold;
     text-align: center;
     margin: 0;
     padding: 5%;
@@ -123,7 +139,7 @@ button{
     height: 100%;
     margin: auto;
     padding: 2%;
-    background-color: white;
+    background-color: #efefef;
     display: grid;
     grid-template-columns:repeat(auto-fit, minmax(20rem, 1fr));
 }
@@ -176,16 +192,6 @@ button{
 .userDetails p{
     margin: 10px;
 }
-.propertyForm input, #propSelect{
-    width: 100%;
-    height: 30px;
-    margin: 5px;
-    border: 0.5px solid #ccc;
-    border-top: none;
-    border-right: none;
-    font-size: 15px;
-    border-radius: 3px;
-}
 #propDescription{
     width: 100%;
     margin: 5px;
@@ -196,6 +202,7 @@ button{
     width: 50%;
     height: 100%;
     margin: auto;
+    margin-bottom: 1rem;
     border: 0.5px solid #ccc;
     box-shadow: 5px 5px 10px gray;
     padding: 3%;
@@ -203,10 +210,10 @@ button{
 }
 .welcomeMessage{
     margin-top: 0;
-    text-align: center
-
+    text-align: center;
+    color: black;
 }
-.userForm input, #signUpSelect{
+.userForm input, #signUpSelect, #propSelect{
     width: 100%;
     height: 30px;
     margin: 3px;
@@ -273,14 +280,10 @@ button{
     height: 15%;
     background-color: black;
     color: white;
-    /* position: sticky;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 1 */
 }
 .footer p{
     margin: 0;
     text-align: center;
+    font-size: 1rem;
     padding: 15px 20px;
 }
