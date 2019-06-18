@@ -1,0 +1,286 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: whitesmoke;
+}
+i{
+    margin-right: 5px;
+}
+button{
+    margin: 3px;
+}
+.container{
+    width: 100%;
+    margin: auto;
+    background-color: black;
+}
+/* .logoDiv{
+    width: 100%;
+    height: 100px;
+    border: 1px solid black;
+    background-color: whitesmoke;
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+} */
+.header{
+    width: 100%;
+    height: 15%;
+    background-color:black;
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+.top-nav{
+    height: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.top-nav ul{
+    list-style-type: none;
+    margin: 0;
+    height: 100%;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+.top-nav li{
+    float: left;
+    height: 100%;
+}
+.top-nav li a {
+  display: inline-block;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+.top-nav select{
+    height: 50.5px;
+    font-size: 15px;
+    border: none;
+}
+.top-nav .top-right-button{
+    float: right;
+}
+.top-nav li a:hover{
+  background-color: darkblue;
+}
+.active{
+    background-color: dodgerblue;
+}
+.content{
+    width: 100%;
+}
+.contentSection{
+    height: 100%;
+}
+.propertyGrid{
+    width: 90%;
+    height: 100%;
+    padding: 1%;
+    margin: auto;
+    background-color: white;
+    display: grid;
+    grid-template-columns:repeat(auto-fit, minmax(15rem, 1fr));
+    grid-gap: 1em;
+    align-items: stretch;
+    justify-items: stretch;
+
+}
+.nested{
+    border: 0.5px solid #ccc;
+    border-radius: 0 0 2% 2%;
+    padding: 1%;
+}
+.nested:hover{
+    border: 0.5px solid darkblue;
+}
+.propPhoto{
+    height: 80%;
+}
+.propPhoto img{
+    height: 100%;
+    width: 100%;
+}
+
+.propPhoto p{
+    font-size: 20px;
+    text-align: center;
+    margin: 0;
+    padding: 5%;
+}
+.propertyView{
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    padding: 2%;
+    background-color: white;
+    display: grid;
+    grid-template-columns:repeat(auto-fit, minmax(20rem, 1fr));
+}
+.gallery img{
+    height: 100%;
+    width: 100%;
+    border-radius: 1%;
+}
+.details{
+    overflow: auto;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.details p{
+    margin: 5px;
+    font-size: 150%;
+    text-align: justify;
+}
+.details h3 .userDetails h3{
+    margin: 2%;
+}
+.propertyForm, .Profile{
+    width: 90%;
+    margin: auto;
+    padding: 3%;
+    background-color: white;
+}
+.userInfo{
+    width: 50%;
+    margin: auto;
+    padding: 1%;
+    margin-bottom: 2%;
+    text-align: center;
+    border: 0.5px solid #ccc;
+    box-shadow: 5px 5px 10px gray;
+}
+.userPhoto img{
+    width: 100%;
+    overflow: hidden;
+    border-radius: 2%;
+}
+.userPhoto{
+    width: 50%;
+    margin: auto;
+}
+.userDetails{
+    width: 50%;
+    margin: auto;
+}
+.userDetails p{
+    margin: 10px;
+}
+.propertyForm input, #propSelect{
+    width: 100%;
+    height: 30px;
+    margin: 5px;
+    border: 0.5px solid #ccc;
+    border-top: none;
+    border-right: none;
+    font-size: 15px;
+    border-radius: 3px;
+}
+#propDescription{
+    width: 100%;
+    margin: 5px;
+    border: 0.5px solid #ccc;
+    border-radius: 3px;
+}
+.userForm{
+    width: 50%;
+    height: 100%;
+    margin: auto;
+    border: 0.5px solid #ccc;
+    box-shadow: 5px 5px 10px gray;
+    padding: 3%;
+    background-color: white;
+}
+.welcomeMessage{
+    margin-top: 0;
+    text-align: center
+
+}
+.userForm input, #signUpSelect{
+    width: 100%;
+    height: 30px;
+    margin: 3px;
+    border: 0.5px solid #ccc;
+    border-top: none;
+    border-right: none;
+    font-size: 15px;
+    border-radius: 3px;
+}
+.goButton{
+    width: 100%;
+    height: 40px;
+    margin: 3px;
+    border: none;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: dodgerblue;
+    border-radius: 5px;
+}
+.goButton:hover{
+    background-color: darkblue;
+}
+
+.cartButton, .editButton{
+    border: none;
+    color: white;
+    width: 100%;
+    font-size: 20px;
+    padding: 2%;
+    background-color: dodgerblue;
+    border-radius: 5px;
+}
+.cartButton:hover, .editButton:hover{
+    background-color: darkblue;
+}
+.flagButton, .deleteButton{
+    border: none;
+    color: white;
+    width: 100%;
+    font-size: 20px;
+    padding: 2%;
+    background-color: #222222;
+    border-radius: 5px;
+}
+
+.flagButton:hover, .deleteButton:hover{
+    background-color: darkred;
+}
+.soldButton{
+    border: none;
+    color: white;
+    width: 100%;
+    font-size: 20px;
+    padding: 2%;
+    background-color: green;
+    border-radius: 5px;
+}
+.soldButton:hover{
+    background-color: yellowgreen;
+}
+.footer{
+    width: 100%;
+    height: 15%;
+    background-color: black;
+    color: white;
+    /* position: sticky;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1 */
+}
+.footer p{
+    margin: 0;
+    text-align: center;
+    padding: 15px 20px;
+}
