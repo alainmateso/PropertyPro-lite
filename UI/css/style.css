@@ -5,7 +5,7 @@
 }
 body{
     background-color: #efefef;
-    font-family: sans-serif
+    font-family: monospace;
 }
 i{
     margin-right: 5px;
@@ -38,6 +38,7 @@ button{
     z-index: 1;
     border-bottom: 2px solid gray;
     box-shadow: 3px 0 20px black;
+    font-family: sans-serif;
 }
 .logoArea{
     width: 25%;
@@ -47,9 +48,9 @@ button{
     size: 50rem;
     margin-left: 5%;
     margin-right: 3rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    padding: 0.5%;
+    padding: 1%;
 }
 .top-nav{
     height: 100%;
@@ -94,6 +95,7 @@ button{
 }
 .content{
     width: 100%;
+    font-family: monospace;
 }
 .contentSection{
     height: 100%;
@@ -166,7 +168,7 @@ button{
 }
 .propertyDescription, .userActions{
     padding: 4%;
-    line-height: 2em;
+    line-height: 3em;
     clear: both;
 }
 .propertyDescription p, .userActions p, .propertyDescription h2, .userActions h2{
@@ -176,13 +178,13 @@ button{
 .propertyDetails{
     padding: 2%;
 }
-.propertyForm, .Profile{
+.propertyForm{
     width: 90%;
     margin: auto;
     padding: 3%;
     background-color: white;
 }
-.propertyForm input, #propSelect{
+.propertyForm input{
     width: 100%;
     height: 30px;
     margin: 5px;
@@ -238,7 +240,7 @@ button{
     text-align: center;
     color: black;
 }
-.userForm input, #signUpSelect, #propSelect{
+.userForm input, #signUpSelect, .propSelect{
     width: 100%;
     height: 30px;
     margin: 3px;
@@ -293,6 +295,7 @@ button{
     height: 15%;
     background-color: black;
     color: white;
+    font-family: sans-serif;
 }
 .footer p{
     margin: 0;
