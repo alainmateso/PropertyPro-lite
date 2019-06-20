@@ -29,7 +29,7 @@ button{
 }
 .header{
     width: 100%;
-    height: 15%;
+    height: 50px;
     background-color:black;
     position: sticky;
     top: 0;
@@ -50,7 +50,7 @@ button{
     margin-right: 3rem;
     font-size: 1.5rem;
     font-weight: 600;
-    padding: 1%;
+    padding: 0.8rem;
 }
 .top-nav{
     height: 100%;
@@ -79,7 +79,7 @@ button{
   text-decoration: none;
 }
 .top-nav select{
-    height: 50.5px;
+    height: 50px;
     width: 150px;
     font-size: 15px;
     border: none;
@@ -114,6 +114,7 @@ button{
 
 }
 .nested{
+    height: 100%;
     border: 0.5px solid #ccc;
     border-radius: 0 0 2% 2%;
     padding: 1%;
@@ -138,12 +139,11 @@ button{
 }
 .propertyView{
     width: 90%;
-    height: 100%;
     margin: auto;
     padding: 2%;
     background-color: #efefef;
     display: grid;
-    grid-template-columns:repeat(auto-fit, minmax(15rem, 1fr));
+    grid-template-columns:repeat(auto-fit, minmax(25rem, 1fr));
     grid-gap: 1rem;
 }
 .gallery img{
@@ -158,13 +158,10 @@ button{
     grid-auto-columns: repeat(auto-fit, minmax(15rem, 1fr));
     grid-template-rows: 1fr 1fr;
     grid-auto-rows: minmax(1fr, 1fr);
-    align-content: stretch;
-    align-items: stretch;
 }
 .userContact{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    grid-auto-rows: minmax(50%, 50%)
 }
 .propertyDescription, .userActions{
     padding: 4%;
@@ -177,14 +174,18 @@ button{
 }
 .propertyDetails{
     padding: 2%;
+    font-size: 15px;
 }
-.propertyForm{
-    width: 90%;
+.propertyForm, .userForm{
+    max-width: 50rem;
     margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     padding: 3%;
     background-color: white;
+    box-shadow: 5px 5px 10px gray;
 }
-.propertyForm input{
+.propertyForm input, .userForm input, #signUpSelect, .propSelect{
     width: 100%;
     height: 30px;
     margin: 5px;
@@ -225,30 +226,10 @@ button{
     border: 0.5px solid #ccc;
     border-radius: 3px;
 }
-.userForm{
-    width: 50%;
-    height: 100%;
-    margin: auto;
-    margin-bottom: 1rem;
-    border: 0.5px solid #ccc;
-    box-shadow: 5px 5px 10px gray;
-    padding: 3%;
-    background-color: white;
-}
 .welcomeMessage{
     margin-top: 0;
     text-align: center;
     color: black;
-}
-.userForm input, #signUpSelect, .propSelect{
-    width: 100%;
-    height: 30px;
-    margin: 3px;
-    border: 0.5px solid #ccc;
-    border-top: none;
-    border-right: none;
-    font-size: 15px;
-    border-radius: 3px;
 }
 .goButton{
     width: 100%;
@@ -292,7 +273,7 @@ button{
 }
 .footer{
     width: 100%;
-    height: 15%;
+    height: 50px;
     background-color: black;
     color: white;
     font-family: sans-serif;
