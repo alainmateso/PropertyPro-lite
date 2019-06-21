@@ -6,6 +6,10 @@
 body{
     background-color: #efefef;
     font-family: monospace;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 i{
     margin-right: 5px;
@@ -41,7 +45,6 @@ button{
     font-family: sans-serif;
 }
 .logoArea{
-    width: 25%;
     height: 100%;
     float: left;
     color: white;
@@ -57,15 +60,14 @@ button{
     padding-left: 5%;
     padding-right: 5%;
 }
-.top-nav ul{
+.top-nav ul, .smallHeader ul{
     list-style-type: none;
     margin: 0;
     height: 100%;
     padding: 0;
-    height: 100%;
     overflow: hidden;
 }
-.top-nav li{
+.top-nav li, .smallHeader li{
     float: left;
     height: 100%;
     margin-right: 2px;
@@ -94,6 +96,7 @@ button{
     background-color: dodgerblue;
 }
 .content{
+    min-height: calc(100vh - 100px) !important;
     width: 100%;
     font-family: monospace;
 }
@@ -146,10 +149,58 @@ button{
     grid-template-columns:repeat(auto-fit, minmax(25rem, 1fr));
     grid-gap: 1rem;
 }
-.gallery img{
-    height: 100%;
+
+.mySlides{
+    display: none;
+    height: 20rem;
+}
+.mySlides img{
     width: 100%;
-    border-radius: 1%;
+    height: 100%;
+}
+.cursor{
+    cursor: pointer;
+}
+.prev, .next {
+  cursor: pointer;
+  width: auto;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.next {
+  border-radius: 3px 0 0 3px;
+}
+.slideButtons{
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    justify-content: space-between;
+    
+}
+.prev:hover, .next:hover {
+  background-color: darkblue;
+}
+.column .demo{
+    height: 5rem;
+}
+.column .demo img{
+    height: 100%;
+}
+.column {
+  float: left;
+  width: 20%;
+}
+.demo {
+  opacity: 0.6;
+  width: 100%;
+}
+.active, .demo:hover {
+  opacity: 1;
 }
 .details{
     border-radius: 1%;
