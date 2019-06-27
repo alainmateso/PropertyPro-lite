@@ -33,3 +33,21 @@ window.onload = () => {
     showSlides(slideIndex);
 
 }
+
+function myFunction() {
+    var x = document.getElementById("my-top-nav");
+    var y = document.getElementById("logo")
+    if (x.className === "top-nav") {
+        x.className = "responsive";
+    }
+    else {
+        x.className = "top-nav";
+    }
+
+    if (y.className === "logoArea") {
+        y.className = "hidden"
+    }
+    else {
+        y.className = "logoArea"
+    }
+}
