@@ -9,13 +9,15 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
         integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/script.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <div class="logoArea"><a href="#Home"><i class="fas fa-home"></i>Property-Pro Lite</a> </div>
-            <nav class="top-nav">
+            <div class="logoArea" id="logo"><a href="#Home"><i class="fas fa-home"></i>Property-Pro Lite</a> </div>
+            <nav class="top-nav" id="my-top-nav">
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
                 <ul>
                     <li class="active"><a href="#Properties">Properties</a></li>
                     <li><select name="propertyType" id="">
