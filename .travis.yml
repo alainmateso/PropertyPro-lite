@@ -1,0 +1,11 @@
+language: node_js
+
+node_js:
+  - stable
+
+script:
+  - echo "test starts....."
+  - npm run test
+
+after_script:
+  - npm install coveralls && npm run coverage
