@@ -1,11 +1,10 @@
-window.onload = () => {
-    var slideIndex = 1;
-    // Next/previous controls
+function carousel() {
+    let slideIndex = 1;
+
     plusSlides = (n) => {
         showSlides(slideIndex += n);
     }
 
-    // Thumbnail image controls
     currentSlide = (n) => {
         showSlides(slideIndex = n);
     }
@@ -14,36 +13,40 @@ window.onload = () => {
         if (n != slideIndex) {
             slideIndex = n;
         }
-        var slides = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("demo");
-        if (n > slides.length) { slideIndex = 1 }
-        if (n <= 0) { slideIndex = slides.length }
+
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("demo");
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n <= 0) {
+            slideIndex = slides.length
+        }
         for (let i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
+
         for (let i = 0; i < dots.length; i++) {
             dots[i].className = dots[i].className.replace(" active", "");
         }
+
         if (typeof slides[slideIndex - 1] != "undefined") {
             slides[slideIndex - 1].style.display = "block";
             dots[slideIndex - 1].className += " active";
         }
     }
-
     showSlides(slideIndex);
-
 }
 
 function myFunction() {
-    var x = document.getElementById("my-top-nav");
-    var y = document.getElementById("logo")
+    const x = document.getElementById("my-top-nav");
+    const y = document.getElementById("logo")
     if (x.className === "top-nav") {
         x.className = "responsive";
     }
     else {
         x.className = "top-nav";
     }
-
     if (y.className === "logoArea") {
         y.className = "hidden"
     }
@@ -51,3 +54,5 @@ function myFunction() {
         y.className = "logoArea"
     }
 }
+
+window.onload = carousel
