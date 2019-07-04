@@ -1,12 +1,15 @@
 import express from 'express';
 const app = express();
+app.use(express.json());
 
-const PORT = process.env.PORT || 3000
+import route from './routes/propertyRoutes';
 
-app.get('/', (req, res) => {
-	res.send('OK')
-});
+const PORT = process.env.PORT || 3000;
+
+app.use('/api/v1', route);
 
 app.listen(PORT, () => {
-	console.log(`Server running on port ${PORT}`)
+	console.log(`server running on port ${PORT}...`)
 });
+
+export default app;
