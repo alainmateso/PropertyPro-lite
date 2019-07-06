@@ -1,5 +1,3 @@
-import cloudinary from 'cloudinary';
-
 const properties = [
   {
     id: 1,
@@ -9,9 +7,9 @@ const properties = [
     state: 'Rwanda', // State where property is located
     city: 'Kigali', // City where property is located
     address: 'KN 130 st',
-    type: '2 bedroon', // 2 bedroom, 3 bedroom etc
-    created_on: 'July 5, 2019',
-    image_url: 'https://via.placeholder.com/150',
+    type: '2 bedroom', // 2 bedroom, 3 bedroom etc
+    created_on: '2019-07-06T20:39:17+02:00',
+    image_url: 'http://res.cloudinary.com/codeal/image/upload/v1562438357/e99ook5kfpkrrtxva64p.jpg',
   }
 ]
 
