@@ -8,6 +8,6 @@ import PropertyController from '../controllers/propertyController';
 router.get('/properties', PropertyController.viewAllProperties);
 router.get('/property/:id', PropertyController.viewPropertyById);
 router.post('/property', multipartyMiddle, PropertyController.postNewProperty);
-
+router.delete('/property/:id', PropertyController.deleteProperty);
 
 export default router;
