@@ -44,31 +44,6 @@ describe('Test Server', () => {
         });
     });
 
-    describe('Test POST property route', () => {
-      it('It should POST a new property', (done) => {
-        const newProperty = {
-          owner: 1,
-          status: 'available',
-          price: 2000000,
-          state: 'Rwanda',
-          city: 'Kigali',
-          address: 'KN 130 st',
-          type: '2 bedroom',
-          image: 'http://res.cloudinary.com/codeal/image/upload/v1562438357/e99ook5kfpkrrtxva64p.jpg'
-        }
-        chai.request(app)
-          .post('/api/v1/property')
-          .send(newProperty)
-          .end((err, res) => {
-            res.should.have.status(400)
-            res.body.should.be.a('object');
-            res.body.should.have.property('status').eql(400);
-            res.body.should.have.property('data').should.be.a('array');
-            res.body.should.have.property('data').should.have.property('owner').eql(newProperty.owner)
-            done();
-          });
-      });
-    });
 
   });
 });

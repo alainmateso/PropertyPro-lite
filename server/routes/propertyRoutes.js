@@ -9,5 +9,6 @@ router.get('/properties', PropertyController.viewAllProperties);
 router.get('/property/:id', PropertyController.viewPropertyById);
 router.post('/property', multipartyMiddle, PropertyController.postNewProperty);
 router.delete('/property/:id', PropertyController.deleteProperty);
+router.patch('/property/:id', multipartyMiddle, PropertyController.updatePropertyDetails);
 
 export default router;
