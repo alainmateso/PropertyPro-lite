@@ -7,7 +7,8 @@
     "start": "nodemon --exec babel-node server/index.js",
     "build": "mkdir dist && babel server -s -d dist",
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --exit",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "heroku": "babel-node server/index.js"
   },
   "repository": {
     "type": "git",

@@ -11,6 +11,6 @@ const properties = [
     created_on: '2019-07-06T20:39:17+02:00',
     image_url: 'http://res.cloudinary.com/codeal/image/upload/v1562438357/e99ook5kfpkrrtxva64p.jpg',
   }
-]
+];
 
 export default properties;
