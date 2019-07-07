@@ -4,6 +4,7 @@ import moment from 'moment';
 require('dotenv').config();
 
 import cloudinary from 'cloudinary';
+import { fileURLToPath } from 'url';
 
 
 const { cloud_name, api_key, api_secret } = process.env;
@@ -157,6 +158,22 @@ class PropertyController {
 			error: 'No property found'
 		});
 	}
+
+	//
+	static viewPropertiesByType(req, res) {
+		const foundProperties = properties.filter(item => item.type == req.query.type)
+		if (foundProperties.length > 0) {
+			return res.status(200).json({
+				status: req.statusCode,
+				data: foundProperties
+			});
+		}
+		return res.status(404).json({
+			status: res.statusCode,
+			error: 'No properties of such a type'
+		});
+	}
+
 }
 
 export default PropertyController;
