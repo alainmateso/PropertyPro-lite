@@ -141,7 +141,21 @@ class PropertyController {
 				data: property
 			});
 		}
-
+	}
+	// mark property as sold
+	static markAsSold(req, res) {
+		const property = properties.find(item => item.id == req.params.id)
+		if (property) {
+			property.status = 'sold'
+			return res.status(200).json({
+				status: res.statusCode,
+				data: property
+			});
+		}
+		return res.status(404).json({
+			status: res.statusCode,
+			error: 'No property found'
+		});
 	}
 }
 
