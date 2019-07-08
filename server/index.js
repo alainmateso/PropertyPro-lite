@@ -5,6 +5,7 @@ import express from 'express';
 
 
 import route from './routes/propertyRoutes';
+import userRouter from './routes/userRoutes';
 
 require('dotenv').config();
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 const PORT = process.env.PORT || 3000;
 
 app.use('/api/v1', route);
+app.use('/user', userRouter);
 
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}...`);
