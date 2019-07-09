@@ -44,28 +44,6 @@ class PropertyController {
 	// create a new property advert
 
 	static postNewProperty(req, res) {
-		const schema = Joi.object().keys({
-			owner: Joi.number().integer().required(),
-			price: Joi.number().required(),
-			state: Joi.string().required(),
-			city: Joi.string().required(),
-			address: Joi.string().required(),
-			type: Joi.string().required()
-		});
-		const { error: validationErrors } = Joi.validate(req.body, schema, {
-			abortEarly: false
-		});
-		if (validationErrors) {
-			const error = [];
-			const { details: errors } = validationErrors;
-			errors.forEach(element => {
-				error.push(element.message.split('"').join(''));
-			});
-			return res.status(400).json({
-				status: res.statusCode,
-				error: error
-			});
-		}
 		const { owner, price, state, city, address, type } = req.body;
 		if (!req.files.image) {
 			return res.status(400).json({
