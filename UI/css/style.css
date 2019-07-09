@@ -1,76 +1,76 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-body{
-    background-color: #efefef;
-    font-family: monospace;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+body {
+  background-color: #efefef;
+  font-family: monospace;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-i{
-    margin-right: 5px;
+i {
+  margin-right: 5px;
 }
-a{
-    text-decoration: none;
-    color: inherit;
+a {
+  text-decoration: none;
+  color: inherit;
 }
-button{
-    margin: 3px;
+button {
+  margin: 3px;
 }
-.container{
-    width: 100%;
-    margin: auto;
-    background-color: #efefef;
+.container {
+  width: 100%;
+  margin: auto;
+  background-color: #efefef;
 }
-.headerArea{
-    width: 100%;
-    height: 5rem;
-    background-color: black;
+.headerArea {
+  width: 100%;
+  height: 5rem;
+  background-color: black;
 }
-.header{
-    width: 100%;
-    min-height: 50px;
-    background-color:black;
-    position: sticky;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1;
-    border-bottom: 2px solid gray;
-    box-shadow: 3px 0 20px black;
-    font-family: sans-serif;
+.header {
+  width: 100%;
+  min-height: 50px;
+  background-color: black;
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  border-bottom: 2px solid gray;
+  box-shadow: 3px 0 20px black;
+  font-family: sans-serif;
 }
-.logoArea{
-    height: 100%;
-    float: left;
-    color: white;
-    size: 50rem;
-    margin-left: 5%;
-    margin-right: 3rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    padding: 0.8rem;
+.logoArea {
+  height: 100%;
+  float: left;
+  color: white;
+  size: 50rem;
+  margin-left: 5%;
+  margin-right: 3rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.8rem;
 }
-.top-nav{
-    height: 100%;
-    padding-left: 5%;
-    padding-right: 5%;
+.top-nav {
+  height: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
-.top-nav ul{
-    list-style-type: none;
-    margin: 0;
-    height: 100%;
-    padding: 0;
-    overflow: hidden;
+.top-nav ul {
+  list-style-type: none;
+  margin: 0;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
 }
-.top-nav li{
-    float: left;
-    height: 100%;
-    margin-right: 2px;
+.top-nav li {
+  float: left;
+  height: 100%;
+  margin-right: 2px;
 }
 .top-nav li a {
   display: inline-block;
@@ -80,42 +80,60 @@ button{
   padding: 14px 20px;
   text-decoration: none;
 }
-.top-nav select{
-    height: 50px;
-    width: 150px;
-    font-size: 15px;
-    border: none;
-    border-radius: 0;
+.top-nav select {
+  height: 50px;
+  width: 150px;
+  font-size: 15px;
+  border: none;
+  border-radius: 0;
 }
-.top-nav .top-right-button{
-    float: right;
+.top-nav .top-right-button {
+  float: right;
 }
-.top-nav li a:hover{
+.top-nav li a:hover {
   background-color: darkblue;
 }
 .top-nav .icon {
   display: none;
   color: white;
 }
-.active{
-    background-color: dodgerblue;
+.active {
+  background-color: dodgerblue;
 }
-@media screen and (max-width: 1130px){
-    .top-nav li a, .top-nav select, .logoArea{
-        font-size: 1rem;
-        height: 3rem;
-    }
+@media screen and (max-width: 1130px) {
+  .top-nav li a,
+  .top-nav select,
+  .logoArea {
+    font-size: 1rem;
+    height: 3rem;
+  }
 }
-@media screen and (max-width: 989px){
-    .top-nav li a, .top-nav select, .logoArea{
-        font-size: 0.8rem;
-        height: 3rem;
-        margin-right: 0; 
-    }
+@media screen and (max-width: 989px) {
+  .top-nav li a,
+  .top-nav select,
+  .logoArea {
+    font-size: 0.8rem;
+    height: 3rem;
+    margin-right: 0;
+  }
 }
-@media screen and (max-width: 852px){
-  .top-nav ul {display: none;}
-  .logoArea{font-size: 1rem;}
+@media screen and (max-width: 852px) {
+  div.header {
+    position: fixed;
+    top: 0;
+  }
+  .content {
+    margin-top: 3rem;
+  }
+  .userForm {
+    height: -webkit-fill-available;
+  }
+  .top-nav ul {
+    display: none;
+  }
+  .logoArea {
+    font-size: 1rem;
+  }
   .top-nav a.icon {
     float: right;
     display: block;
@@ -124,98 +142,100 @@ button{
   }
 }
 @media screen and (max-width: 852px) {
-    .hidden{display: none}
-    .responsive a.icon {
-        position: absolute;
-        right: 2rem;
-        top: 0.5rem;
-        color: white;
-    }
-    .responsive ul{
-      list-style-type: none;
-    }
-    .responsive li a{
-        width: 100%;
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 0.5rem;
-        text-decoration: none;
-        float: none;
-        margin: 0 0 0 0;
-    }
-    .responsive select{
-        width: 100%;
-        height: 2rem;
-    }
-}
-.content{
-    min-height: calc(100vh - 100px) !important;
-    width: 100%;
-    font-family: monospace;
-}
-.contentSection{
-    height: 100%;
-}
-.propertyGrid{
-    width: 90%;
-    height: 100%;
-    padding: 1%;
-    margin: auto;
-    background-color: #efefef;
-    display: grid;
-    grid-template-columns:repeat(auto-fit, minmax(15rem, 1fr));
-    grid-gap: 1em;
-    align-items: stretch;
-    justify-items: stretch;
-
-}
-.nested{
-    height: 100%;
-    border: 0.5px solid #ccc;
-    border-radius: 0 0 2% 2%;
-    padding: 1%;
-}
-.nested:hover{
-    border: 0.5px solid darkblue;
-}
-.propPhoto{
-    height: 80%;
-}
-.propPhoto img{
-    height: 100%;
-    width: 100%;
-}
-
-.propPhoto p{
-    font-size: 15px;
-    font-weight: bold;
-    text-align: center;
-    margin: 0;
-    padding: 5%;
-}
-.propertyView{
-    width: 90%;
-    margin: auto;
-    padding: 2%;
-    background-color: #efefef;
-    display: grid;
-    grid-template-columns:repeat(auto-fit, minmax(25rem, 1fr));
-    grid-gap: 1rem;
-}
-
-.mySlides{
+  .hidden {
     display: none;
-    height: 20rem;
-}
-.mySlides img{
+  }
+  .responsive a.icon {
+    position: absolute;
+    right: 2rem;
+    top: 0.5rem;
+    color: white;
+  }
+  .responsive ul {
+    list-style-type: none;
+  }
+  .responsive li a {
     width: 100%;
-    height: 100%;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    text-decoration: none;
+    float: none;
+    margin: 0 0 0 0;
+  }
+  .responsive select {
+    width: 100%;
+    height: 2rem;
+  }
 }
-.cursor{
-    cursor: pointer;
+.content {
+  min-height: calc(100vh - 100px) !important;
+  width: 100%;
+  font-family: monospace;
 }
-.prev, .next {
+.contentSection {
+  height: 100%;
+}
+.propertyGrid {
+  width: 90%;
+  height: 100%;
+  padding: 1%;
+  margin: auto;
+  background-color: #efefef;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-gap: 1em;
+  align-items: stretch;
+  justify-items: stretch;
+}
+.nested {
+  height: 100%;
+  border: 0.5px solid #ccc;
+  border-radius: 0 0 2% 2%;
+  padding: 1%;
+}
+.nested:hover {
+  border: 0.5px solid darkblue;
+}
+.propPhoto {
+  height: 80%;
+}
+.propPhoto img {
+  height: 100%;
+  width: 100%;
+}
+
+.propPhoto p {
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+  padding: 5%;
+}
+.propertyView {
+  width: 90%;
+  margin: auto;
+  padding: 2%;
+  background-color: #efefef;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 1rem;
+}
+
+.mySlides {
+  display: none;
+  height: 20rem;
+}
+.mySlides img {
+  width: 100%;
+  height: 100%;
+}
+.cursor {
+  cursor: pointer;
+}
+.prev,
+.next {
   cursor: pointer;
   width: auto;
   padding: 16px;
@@ -229,21 +249,21 @@ button{
 .next {
   border-radius: 3px 0 0 3px;
 }
-.slideButtons{
-    display: flex;
-    flex-direction: row;
-    background-color: black;
-    justify-content: space-between;
-    
+.slideButtons {
+  display: flex;
+  flex-direction: row;
+  background-color: black;
+  justify-content: space-between;
 }
-.prev:hover, .next:hover {
+.prev:hover,
+.next:hover {
   background-color: darkblue;
 }
-.column .demo{
-    height: 5rem;
+.column .demo {
+  height: 5rem;
 }
-.column .demo img{
-    height: 100%;
+.column .demo img {
+  height: 100%;
 }
 .column {
   float: left;
@@ -253,139 +273,154 @@ button{
   opacity: 0.6;
   width: 100%;
 }
-.active, .demo:hover {
+.active,
+.demo:hover {
   opacity: 1;
 }
-.details{
-    border-radius: 1%;
-    border: 0.5px solid #ccc;
-    display: grid;
-    grid-auto-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    grid-template-rows: 1fr 1fr;
+.details {
+  border-radius: 1%;
+  border: 0.5px solid #ccc;
+  display: grid;
+  grid-auto-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-rows: 1fr 1fr;
 }
-.userContact{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+.userContact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 }
-.propertyDescription, .userActions{
-    padding: 4%;
-    line-height: 3em;
-    clear: both;
+.propertyDescription,
+.userActions {
+  padding: 4%;
+  line-height: 3em;
+  clear: both;
 }
-.propertyDescription p, .userActions p, .propertyDescription h2, .userActions h2{
-    font-family: monospace;
-    font-size: 1.2rem;
+.propertyDescription p,
+.userActions p,
+.propertyDescription h2,
+.userActions h2 {
+  font-family: monospace;
+  font-size: 1.2rem;
 }
-.propertyDetails{
-    padding: 2%;
-    font-size: 15px;
-    clear: both;
+.propertyDetails {
+  padding: 2%;
+  font-size: 15px;
+  clear: both;
 }
-.propertyForm, .userForm{
-    max-width: 50rem;
-    margin: auto;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    padding: 3%;
-    background-color: white;
-    box-shadow: 5px 5px 10px gray;
+.propertyForm,
+.userForm {
+  max-width: 50rem;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 3%;
+  background-color: white;
+  box-shadow: 5px 5px 10px gray;
 }
-.propertyForm input, .userForm input, #signUpSelect, .propSelect{
-    width: 100%;
-    height: 30px;
-    margin: 5px;
-    border: 0.5px solid #ccc;
-    border-top: none;
-    border-right: none;
-    font-size: 15px;
-    border-radius: 3px;
+.propertyForm input,
+.userForm input,
+#signUpSelect,
+.propSelect {
+  width: 100%;
+  height: 30px;
+  margin: 5px;
+  border: 0.5px solid #ccc;
+  border-top: none;
+  border-right: none;
+  font-size: 15px;
+  border-radius: 3px;
 }
-.userInfo{
-    width: 50%;
-    margin: auto;
-    padding: 1%;
-    margin-bottom: 2%;
-    text-align: center;
-    border: 0.5px solid #ccc;
-    box-shadow: 5px 5px 10px gray;
+.userInfo {
+  width: 50%;
+  margin: auto;
+  padding: 1%;
+  margin-bottom: 2%;
+  text-align: center;
+  border: 0.5px solid #ccc;
+  box-shadow: 5px 5px 10px gray;
 }
-.userPhoto img{
-    width: 100%;
-    overflow: hidden;
-    border-radius: 2%;
+.userPhoto img {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 2%;
 }
-.userPhoto{
-    width: 50%;
-    margin: auto;
+.userPhoto {
+  width: 50%;
+  margin: auto;
 }
-.userDetails{
-    width: 50%;
-    margin: auto;
+.userDetails {
+  width: 50%;
+  margin: auto;
 }
-.userDetails p{
-    margin: 10px;
+.userDetails p {
+  margin: 10px;
 }
-#propDescription{
-    width: 100%;
-    margin: 5px;
-    border: 0.5px solid #ccc;
-    border-radius: 3px;
+#propDescription {
+  width: 100%;
+  margin: 5px;
+  border: 0.5px solid #ccc;
+  border-radius: 3px;
 }
-.welcomeMessage{
-    margin-top: 0;
-    text-align: center;
-    color: black;
+.welcomeMessage {
+  margin-top: 0;
+  text-align: center;
+  color: black;
 }
-.goButton{
-    width: 100%;
-    height: 40px;
-    margin: 3px;
-    border: none;
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-    background-color: dodgerblue;
-    border-radius: 5px;
+.goButton {
+  width: 100%;
+  height: 40px;
+  margin: 3px;
+  border: none;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: dodgerblue;
+  border-radius: 5px;
 }
-.goButton:hover{
-    background-color: darkblue;
-}
-
-.contactButton, .editButton, .soldButton{
-    border: none;
-    color: white;
-    width: 100%;
-    font-size: 15px;
-    padding: 2%;
-    background-color: dodgerblue;
-    border-radius: 5px;
-}
-.contactButton:hover, .editButton:hover, .soldButton:hover{
-    background-color: darkblue;
-}
-.flagButton, .deleteButton{
-    border: none;
-    color: white;
-    width: 100%;
-    font-size: 15px;
-    padding: 2%;
-    background-color: #222222;
-    border-radius: 5px;
+.goButton:hover {
+  background-color: darkblue;
 }
 
-.flagButton:hover, .deleteButton:hover{
-    background-color: darkred;
+.contactButton,
+.editButton,
+.soldButton {
+  border: none;
+  color: white;
+  width: 100%;
+  font-size: 15px;
+  padding: 2%;
+  background-color: dodgerblue;
+  border-radius: 5px;
 }
-.footer{
-    width: 100%;
-    height: 50px;
-    background-color: black;
-    color: white;
-    font-family: sans-serif;
+.contactButton:hover,
+.editButton:hover,
+.soldButton:hover {
+  background-color: darkblue;
 }
-.footer p{
-    margin: 0;
-    text-align: center;
-    font-size: 1rem;
-    padding: 15px 20px;
+.flagButton,
+.deleteButton {
+  border: none;
+  color: white;
+  width: 100%;
+  font-size: 15px;
+  padding: 2%;
+  background-color: #222222;
+  border-radius: 5px;
+}
+
+.flagButton:hover,
+.deleteButton:hover {
+  background-color: darkred;
+}
+.footer {
+  width: 100%;
+  height: 50px;
+  background-color: black;
+  color: white;
+  font-family: sans-serif;
+}
+.footer p {
+  margin: 0;
+  text-align: center;
+  font-size: 1rem;
+  padding: 15px 20px;
 }
