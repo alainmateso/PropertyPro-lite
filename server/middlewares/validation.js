@@ -29,5 +29,17 @@ class ValidationMiddleware {
     });
     validator(req, res, schema, next);
   }
+
+  static updatePropertyValidation(req, res, next) {
+    const schema = Joi.object().keys({
+      owner: Joi.number().integer().min(1),
+      price: Joi.number().min(3),
+      state: Joi.string().min(3),
+      city: Joi.string().min(3),
+      address: Joi.string().min(3),
+      type: Joi.string().min(3)
+    });
+    validator(req, res, schema, next);
+  }
 }
 export default ValidationMiddleware;

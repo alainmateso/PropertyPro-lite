@@ -1,5 +1,4 @@
 import properties from '../data/properties';
-import Joi from '@hapi/joi';
 import moment from 'moment';
 require('dotenv').config();
 
@@ -86,28 +85,6 @@ class PropertyController {
 
 	// update property details
 	static updatePropertyDetails(req, res) {
-		const schema = Joi.object().keys({
-			owner: Joi.number().integer().min(1),
-			price: Joi.number().min(3),
-			state: Joi.string().min(3),
-			city: Joi.string().min(3),
-			address: Joi.string().min(3),
-			type: Joi.string().min(3)
-		});
-		const { error: validationErrors } = Joi.validate(req.body, schema, {
-			abortEarly: false
-		});
-		if (validationErrors) {
-			const error = [];
-			const { details: errors } = validationErrors;
-			errors.forEach(element => {
-				error.push(element.message.split('"').join(''));
-			});
-			return res.status(400).json({
-				status: res.statusCode,
-				error: error
-			});
-		}
 		const property = properties.find(item => item.id == req.params.id)
 		if (property) {
 			const newDetails = Object.keys(req.body);
@@ -136,7 +113,8 @@ class PropertyController {
 		});
 	}
 
-	//
+	// view properties by type
+
 	static viewPropertiesByType(req, res) {
 		const foundProperties = properties.filter(item => item.type == req.query.type)
 		if (foundProperties.length > 0) {
