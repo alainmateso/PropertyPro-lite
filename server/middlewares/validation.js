@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 
-function validator(req, res, schema, next) {
+const validator = (req, res, schema, next) => {
   const { error: validationErrors } = Joi.validate(req.body, schema, {
     abortEarly: false
   });
