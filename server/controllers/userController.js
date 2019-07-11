@@ -13,14 +13,14 @@ class UserController {
   static userSignUp(req, res) {
     const { email, first_name, last_name, password, phoneNumber, address } = req.body;
     const newUser = { token, id: users.length + 1, email, first_name, last_name, password, phoneNumber, address, is_admin: false }
-    const result = omit(newUser, 'password');
-    const token = jwt.sign({ ...result }, user_secret, { expiresIn: '24h' });
+    const token = jwt.sign({ ...newUser }, user_secret, { expiresIn: '24h' });
     newUser.token = token;
     users.push(newUser);
+    const result = omit(newUser, 'password');
     return res.status(201).json({
       status: res.statusCode,
       message: 'User account created Successfully',
-      data: newUser
+      data: result
     });
   }
 

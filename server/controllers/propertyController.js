@@ -79,14 +79,21 @@ class PropertyController {
 	}
 
 	static deleteProperty(req, res) {
+		const ownerID = req.user.id
 		const id = req.params.id;
 		const propertyIndex = properties.findIndex(item => item.id == id)
 		if (propertyIndex != -1) {
-			properties.splice(propertyIndex, 1)
-			return res.status(200).json({
+			if (ownerID == id) {
+				properties.splice(propertyIndex, 1)
+				return res.status(200).json({
+					status: res.statusCode,
+					message: 'Property deleted successfully'
+				});
+			}
+			return res.status(401).json({
 				status: res.statusCode,
-				message: 'Property deleted successfully'
-			});
+				message: 'This is not your property'
+			})
 		}
 		return res.status(404).json({
 			status: res.statusCode,
@@ -96,29 +103,49 @@ class PropertyController {
 
 	// update property details
 	static updatePropertyDetails(req, res) {
-		const property = properties.find(item => item.id == req.params.id)
+		const ownerID = req.user.id;
+		const id = req.params.id;
+		const property = properties.find(item => item.id == id)
 		if (property) {
-			const newDetails = Object.keys(req.body);
-			newDetails.forEach(newDetail => {
-				property[newDetail] = req.body[newDetail]
-			});
-			return res.status(201).json({
+			if (ownerID == id) {
+				const newDetails = Object.keys(req.body);
+				newDetails.forEach(newDetail => {
+					property[newDetail] = req.body[newDetail]
+				});
+				return res.status(201).json({
+					status: res.statusCode,
+					message: 'New details recorded successfully',
+					data: property
+				});
+			}
+			return res.status(401).json({
 				status: res.statusCode,
-				message: 'New details recorded successfully',
-				data: property
-			});
+				message: 'This is not your property'
+			})
 		}
+		return res.status(404).json({
+			status: res.statusCode,
+			error: 'No property found'
+		});
 	}
 	// mark property as sold
 	static markAsSold(req, res) {
-		const property = properties.find(item => item.id == req.params.id)
+		const ownerID = req.user.id
+		const id = req.params.id
+		const property = properties.find(item => item.id == id)
 		if (property) {
-			property.status = 'sold'
-			return res.status(200).json({
+			if (ownerID == id) {
+				property.status = 'sold'
+				return res.status(200).json({
+					status: res.statusCode,
+					message: 'Property marked as sold',
+					data: property
+				});
+			}
+			return res.status(401).json({
 				status: res.statusCode,
-				message: 'Property marked as sold successfully',
-				data: property
-			});
+				message: 'This is not your property'
+			})
 		}
 		return res.status(404).json({
 			status: res.statusCode,
