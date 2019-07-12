@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/alainmateso/PropertyPro-lite#readme",
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
+    "@babel/cli": "^7.5.0",
     "@babel/core": "^7.4.5",
     "@babel/node": "^7.4.5",
     "@babel/polyfill": "^7.4.4",
@@ -47,6 +47,8 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.14",
     "lodash.omit": "^4.5.0",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "swagger-ui": "^3.23.0",
+    "swagger-ui-express": "^4.0.7"
   }
 }
