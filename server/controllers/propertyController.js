@@ -1,5 +1,6 @@
 import properties from '../data/properties';
 import moment from 'moment';
+
 require('dotenv').config();
 
 import cloudinary from 'cloudinary';
@@ -17,10 +18,18 @@ class PropertyController {
 	// view all properties
 
 	static viewAllProperties(req, res) {
-		return res.status(200).json({
+		if (properties.length > 0) {
+			return res.status(200).json({
+				status: res.statusCode,
+				message: 'A complete list of properties',
+				data: properties
+			});
+		}
+		return res.status(404).json({
 			status: res.statusCode,
-			data: properties
+			error: 'No proerties found'
 		});
+
 	}
 
 	//view a specific property
@@ -31,6 +40,7 @@ class PropertyController {
 		if (property) {
 			return res.status(200).json({
 				status: res.statusCode,
+				message: 'The property you were looking for is here',
 				data: property
 			});
 		}
@@ -43,7 +53,7 @@ class PropertyController {
 	// create a new property advert
 
 	static postNewProperty(req, res) {
-		const { owner, price, state, city, address, type } = req.body;
+		const { price, state, city, address, type } = req.body;
 		if (!req.files.image) {
 			return res.status(400).json({
 				status: res.statusCode,
@@ -58,24 +68,32 @@ class PropertyController {
 					error: error
 				});
 			}
-			const newProperty = { id: properties.length + 1, owner, status: 'available', price, state, city, address, type, created_on: moment().format(), image_url: result.url }
+			const newProperty = { id: properties.length + 1, owner: req.user.id, status: 'available', price, state, city, address, type, created_on: moment().format(), image_url: result.url }
 			properties.push(newProperty);
 			return res.status(201).json({
 				status: res.statusCode,
+				message: 'New property ad posted successfuly',
 				data: newProperty
 			});
 		});
 	}
 
 	static deleteProperty(req, res) {
+		const ownerID = req.user.id
 		const id = req.params.id;
 		const propertyIndex = properties.findIndex(item => item.id == id)
 		if (propertyIndex != -1) {
-			properties.splice(propertyIndex, 1)
-			return res.status(200).json({
+			if (ownerID == id) {
+				properties.splice(propertyIndex, 1)
+				return res.status(200).json({
+					status: res.statusCode,
+					message: 'Property deleted successfully'
+				});
+			}
+			return res.status(401).json({
 				status: res.statusCode,
-				message: 'Property deleted successfully'
-			});
+				message: 'This is not your property'
+			})
 		}
 		return res.status(404).json({
 			status: res.statusCode,
@@ -85,27 +103,49 @@ class PropertyController {
 
 	// update property details
 	static updatePropertyDetails(req, res) {
-		const property = properties.find(item => item.id == req.params.id)
+		const ownerID = req.user.id;
+		const id = req.params.id;
+		const property = properties.find(item => item.id == id)
 		if (property) {
-			const newDetails = Object.keys(req.body);
-			newDetails.forEach(newDetail => {
-				property[newDetail] = req.body[newDetail]
-			});
-			return res.status(201).json({
+			if (ownerID == id) {
+				const newDetails = Object.keys(req.body);
+				newDetails.forEach(newDetail => {
+					property[newDetail] = req.body[newDetail]
+				});
+				return res.status(201).json({
+					status: res.statusCode,
+					message: 'New details recorded successfully',
+					data: property
+				});
+			}
+			return res.status(401).json({
 				status: res.statusCode,
-				data: property
-			});
+				message: 'This is not your property'
+			})
 		}
+		return res.status(404).json({
+			status: res.statusCode,
+			error: 'No property found'
+		});
 	}
 	// mark property as sold
 	static markAsSold(req, res) {
-		const property = properties.find(item => item.id == req.params.id)
+		const ownerID = req.user.id
+		const id = req.params.id
+		const property = properties.find(item => item.id == id)
 		if (property) {
-			property.status = 'sold'
-			return res.status(200).json({
+			if (ownerID == id) {
+				property.status = 'sold'
+				return res.status(200).json({
+					status: res.statusCode,
+					message: 'Property marked as sold',
+					data: property
+				});
+			}
+			return res.status(401).json({
 				status: res.statusCode,
-				data: property
-			});
+				message: 'This is not your property'
+			})
 		}
 		return res.status(404).json({
 			status: res.statusCode,
@@ -120,15 +160,15 @@ class PropertyController {
 		if (foundProperties.length > 0) {
 			return res.status(200).json({
 				status: res.statusCode,
+				message: `${req.query.type} properties retrieved successfully`,
 				data: foundProperties
 			});
 		}
 		return res.status(404).json({
 			status: res.statusCode,
-			error: 'No properties of such a type'
+			error: `No ${req.query.type} properties were found`
 		});
 	}
-
 }
 
 export default PropertyController;

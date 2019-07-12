@@ -21,7 +21,6 @@ class ValidationMiddleware {
   // Create new Property Validation
   static createPropertyValidation(req, res, next) {
     const schema = Joi.object().keys({
-      owner: Joi.number().integer().required(),
       price: Joi.number().required(),
       state: Joi.string().required(),
       city: Joi.string().required(),
@@ -34,7 +33,6 @@ class ValidationMiddleware {
   static updatePropertyValidation(req, res, next) {
     // Update Property details validation
     const schema = Joi.object().keys({
-      owner: Joi.number().integer().min(1),
       price: Joi.number().min(3),
       state: Joi.string().min(3),
       city: Joi.string().min(3),
