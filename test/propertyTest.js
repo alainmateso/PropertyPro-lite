@@ -26,6 +26,7 @@ const expect = chai.expect;
 describe('Test Properties endpoints', () => {
 
   describe('Test UPDATE property route', () => {
+
     it('It should UPDATE a property', (done) => {
       chai.request(app)
         .patch('/api/v1/property/1')
@@ -35,21 +36,30 @@ describe('Test Properties endpoints', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('status').eql(201);
           res.body.should.have.property('data').eql(properties[0]);
+          done();
         });
+    });
+
+    it('It should return 404 when you try to update a non existent property', (done) => {
       chai.request(app)
         .patch('/api/v1/property/10')
         .send(newDetails)
         .end((err, res) => {
           res.should.have.status(404);
+          done();
         });
+    });
+
+    it('It should return 400 when you try to use wrong data types', (done) => {
       chai.request(app)
         .patch('/api/v1/property/1')
         .send(wrongData)
         .end((err, res) => {
           res.should.have.status(400);
-          done();
+          return done();
         });
     });
+
   });
 
   describe('Test GET properties route', () => {
@@ -64,9 +74,7 @@ describe('Test Properties endpoints', () => {
           done();
         });
     });
-  });
 
-  describe('Test GET specific property route', () => {
     it('It should GET a specific property by ID', (done) => {
       chai.request(app)
         .get('/api/v1/property/1')
@@ -76,6 +84,9 @@ describe('Test Properties endpoints', () => {
           res.body.should.have.property('status').eql(200);
           res.body.should.have.property('data').eql(properties[0]);
         });
+    });
+
+    it('It should return 404 when you try to search for an id that does\'nt exit', (done) => {
       chai.request(app)
         .get('/api/v1/property/4')
         .end((err, res) => {
@@ -96,7 +107,10 @@ describe('Test Properties endpoints', () => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('status').eql(200);
+          done();
         });
+    });
+    it('It should return 404 when trying to mark a non existent property as sold', (done) => {
       chai.request(app)
         .patch('/api/v1/property/10/sold')
         .end((err, res) => {
@@ -114,7 +128,10 @@ describe('Test Properties endpoints', () => {
         .get('/api/v1/property?type=2 bedroom')
         .end((err, res) => {
           res.should.have.status(200);
+          done
         });
+    });
+    it('It should return 404 when you search for a non existent property type', (done) => {
       chai.request(app)
         .get('/api/v1/property?type=10 bedroom')
         .end((err, res) => {
@@ -133,7 +150,10 @@ describe('Test Properties endpoints', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('status').eql(200);
           res.body.should.have.property('message').eql('Property deleted successfully');
+          done();
         });
+    });
+    it('It should return 404 when the id is incorrect', (done) => {
       chai.request(app)
         .delete('/api/v1/property/100')
         .end((err, res) => {
@@ -144,4 +164,6 @@ describe('Test Properties endpoints', () => {
         });
     });
   });
+
+
 });

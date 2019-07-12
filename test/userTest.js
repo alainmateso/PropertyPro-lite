@@ -40,7 +40,10 @@ describe('Test Users endpoints', () => {
           res.should.have.status(201);
           res.body.should.be.a('object');
           res.body.should.have.property('status').eql(201);
+          done();
         });
+    });
+    it('It should return 400 when you try filling incorrect data', (done) => {
       chai.request(app)
         .post('/api/v1/auth/signup')
         .send(wrongData)
