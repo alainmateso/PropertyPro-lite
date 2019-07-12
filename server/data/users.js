@@ -1,6 +1,5 @@
 const users = [
   {
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsYWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNTYyNTQ2ODIyfQ.2rOLZpS6asC5_RTp82g9-SqLDmrW1kNiwonv_D3DfXc',
     id: 1,
     email: 'alain@propertyprolite.com',
     first_name: 'Alain',
@@ -9,6 +8,16 @@ const users = [
     phoneNumber: '123456789',
     address: 'Kigali',
     is_admin: true
+  },
+  {
+    id: 2,
+    email: "person@example.com",
+    first_name: "person",
+    last_name: "personlast",
+    password: '123abc',
+    phoneNumber: "0781111111",
+    address: "Muhanga",
+    is_admin: false
   }
 ];
 

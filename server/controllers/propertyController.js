@@ -78,19 +78,22 @@ class PropertyController {
 		});
 	}
 
+	// Delete a property
+
 	static deleteProperty(req, res) {
+		const is_admin = req.user.is_admin;
 		const ownerID = req.user.id
 		const id = req.params.id;
 		const propertyIndex = properties.findIndex(item => item.id == id)
 		if (propertyIndex != -1) {
-			if (ownerID == id) {
+			if (ownerID == id || is_admin == true) {
 				properties.splice(propertyIndex, 1)
 				return res.status(200).json({
 					status: res.statusCode,
 					message: 'Property deleted successfully'
 				});
 			}
-			return res.status(401).json({
+			return res.status(403).json({
 				status: res.statusCode,
 				message: 'This is not your property'
 			})
@@ -102,12 +105,14 @@ class PropertyController {
 	}
 
 	// update property details
+
 	static updatePropertyDetails(req, res) {
+		const is_admin = req.user.is_admin;
 		const ownerID = req.user.id;
 		const id = req.params.id;
 		const property = properties.find(item => item.id == id)
 		if (property) {
-			if (ownerID == id) {
+			if (ownerID == id || is_admin == true) {
 				const newDetails = Object.keys(req.body);
 				newDetails.forEach(newDetail => {
 					property[newDetail] = req.body[newDetail]
@@ -118,7 +123,7 @@ class PropertyController {
 					data: property
 				});
 			}
-			return res.status(401).json({
+			return res.status(403).json({
 				status: res.statusCode,
 				message: 'This is not your property'
 			})
@@ -130,11 +135,12 @@ class PropertyController {
 	}
 	// mark property as sold
 	static markAsSold(req, res) {
+		const is_admin = req.user.is_admin;
 		const ownerID = req.user.id
 		const id = req.params.id
 		const property = properties.find(item => item.id == id)
 		if (property) {
-			if (ownerID == id) {
+			if (ownerID == id || is_admin == true) {
 				property.status = 'sold'
 				return res.status(200).json({
 					status: res.statusCode,
@@ -142,7 +148,7 @@ class PropertyController {
 					data: property
 				});
 			}
-			return res.status(401).json({
+			return res.status(403).json({
 				status: res.statusCode,
 				message: 'This is not your property'
 			})
