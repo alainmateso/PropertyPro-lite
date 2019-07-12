@@ -12,12 +12,12 @@ export const validateToken = (req, res, next) => {
       req.user = verifiedUser;
       return next();
     }
-    res.status(401).json({
+    return res.status(401).json({
       status: res.statusCode,
       error: 'Authentication failed'
     });
   }
-  res.status(403).json({
+  return res.status(401).json({
     status: res.statusCode,
     message: 'Sign in to have access'
   })
