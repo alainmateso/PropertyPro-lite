@@ -16,6 +16,8 @@ adminUser.token = adminToken;
 const normalToken = jwt.sign({ ...normalUser }, user_secret, { expiresIn: '1h' });
 normalUser.token = normalToken
 
+const invalidToken = 'lnjdsfdkjdsaklalksnkjeksmx';
+
 const newDetails = {
   price: 1000,
   state: 'Rda',
@@ -49,6 +51,20 @@ describe('Test Properties endpoints', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('status').eql(401);
           res.body.should.have.property('message').eql('Sign in to have access');
+        });
+      done();
+    });
+
+    it('It should return 401 when you try to log in with an invalid token', (done) => {
+      chai.request(app)
+        .patch('/api/v1/property/1')
+        .set('Authorization', `Bearer ${invalidToken}`)
+        .send(newDetails)
+        .end((err, res) => {
+          res.should.have.status(401);
+          res.body.should.be.a('object');
+          res.body.should.have.property('status').eql(401);
+          res.body.should.have.property('error').eql('Invalid token');
         });
       done();
     });
@@ -153,6 +169,21 @@ describe('Test Properties endpoints', () => {
         });
       done();
     });
+
+    it('It should return 401 when you try to log in with an invalid token', (done) => {
+      chai.request(app)
+        .patch('/api/v1/property/1')
+        .set('Authorization', `Bearer ${invalidToken}`)
+        .send(newDetails)
+        .end((err, res) => {
+          res.should.have.status(401);
+          res.body.should.be.a('object');
+          res.body.should.have.property('status').eql(401);
+          res.body.should.have.property('error').eql('Invalid token');
+        });
+      done();
+    });
+
     it('It should mark a given property as sold', (done) => {
       chai.request(app)
         .patch('/api/v1/property/1/sold')
@@ -164,6 +195,7 @@ describe('Test Properties endpoints', () => {
         });
       done();
     });
+
     it('It should return 403 when you try to mark a property which is not yours', (done) => {
       chai.request(app)
         .patch('/api/v1/property/1/sold')
@@ -175,6 +207,7 @@ describe('Test Properties endpoints', () => {
         });
       done();
     });
+
     it('It should return 404 when trying to mark a non existent property as sold', (done) => {
       chai.request(app)
         .patch('/api/v1/property/10/sold')
@@ -197,6 +230,7 @@ describe('Test Properties endpoints', () => {
         });
       done();
     });
+
     it('It should return 404 when you search for a non existent property type', (done) => {
       chai.request(app)
         .get('/api/v1/property?type=10 bedroom')
@@ -220,6 +254,21 @@ describe('Test Properties endpoints', () => {
         });
       done();
     });
+
+    it('It should return 401 when you try to log in with an invalid token', (done) => {
+      chai.request(app)
+        .patch('/api/v1/property/1')
+        .set('Authorization', `Bearer ${invalidToken}`)
+        .send(newDetails)
+        .end((err, res) => {
+          res.should.have.status(401);
+          res.body.should.be.a('object');
+          res.body.should.have.property('status').eql(401);
+          res.body.should.have.property('error').eql('Invalid token');
+        });
+      done();
+    });
+
     it('It should return 403 when you try to delete a property which is not yours', (done) => {
       chai.request(app)
         .delete('/api/v1/property/1')
@@ -244,6 +293,7 @@ describe('Test Properties endpoints', () => {
         });
       done();
     });
+
     it('It should delete the second property by id', (done) => {
       chai.request(app)
         .delete('/api/v1/property/2')
@@ -256,6 +306,7 @@ describe('Test Properties endpoints', () => {
         });
       done();
     });
+
     it('It should return 404 when no properties were found', (done) => {
       chai.request(app)
         .get('/api/v1/properties')
