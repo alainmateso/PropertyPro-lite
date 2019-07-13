@@ -11,21 +11,23 @@ const {
   deleteProperty,
   updatePropertyDetails,
   markAsSold,
-  viewPropertiesByType
+  viewPropertiesByType,
+  viewMyProperties
 } = PropertyController
 
-const { createPropertyValidation, updatePropertyValidation } = ValidationMiddleware
+const { createPropertyValidation, updatePropertyValidation, idValidation } = ValidationMiddleware
 
 const multipartyMiddle = multiparty();
 
 const router = express.Router();
 
 router.get('/properties', viewAllProperties);
-router.get('/property/:id', viewPropertyById);
+router.get('/property/:id', idValidation, viewPropertyById);
 router.post('/property', validateToken, multipartyMiddle, createPropertyValidation, postNewProperty);
-router.delete('/property/:id', validateToken, deleteProperty);
+router.delete('/property/:id', validateToken, idValidation, deleteProperty);
 router.patch('/property/:id', validateToken, multipartyMiddle, updatePropertyValidation, updatePropertyDetails);
-router.patch('/property/:id/sold', validateToken, markAsSold);
+router.patch('/property/:id/sold', validateToken, idValidation, markAsSold);
 router.get('/property', viewPropertiesByType);
+router.get('/myProperties', validateToken, viewMyProperties);
 
 export default router;

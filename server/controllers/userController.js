@@ -42,6 +42,29 @@ class UserController {
       token: user
     });
   }
+
+  static resetPassword(req, res) {
+    const { email, newPassword, confirmPassword } = req.body;
+    const user = users.find(member => member.email == email)
+    if (user) {
+      if (newPassword == confirmPassword) {
+        user.password = newPassword
+        res.status(200).json({
+          status: res.statusCode,
+          message: 'Password was reset successfully',
+          data: `Your new password is ${user.password}`
+        });
+      }
+      res.status(400).json({
+        status: res.statusCode,
+        error: 'Password mismatch'
+      });
+    }
+    res.status(400).json({
+      status: res.statusCode,
+      error: 'User not found!'
+    })
+  }
 }
 
 export default UserController;

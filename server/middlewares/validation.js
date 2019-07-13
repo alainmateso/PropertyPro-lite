@@ -1,7 +1,7 @@
 import Joi from '@hapi/joi';
 
 const validator = (req, res, schema, next) => {
-  const { error: validationErrors } = Joi.validate(req.body, schema, {
+  const { error: validationErrors } = Joi.validate({ ...req.body, ...req.params }, schema, {
     abortEarly: false
   });
   if (validationErrors) {
@@ -33,6 +33,7 @@ class ValidationMiddleware {
   static updatePropertyValidation(req, res, next) {
     // Update Property details validation
     const schema = Joi.object().keys({
+      id: Joi.number(),
       price: Joi.number().min(3),
       state: Joi.string().min(3),
       city: Joi.string().min(3),
@@ -54,5 +55,12 @@ class ValidationMiddleware {
     });
     validator(req, res, schema, next);
   }
+  static idValidation(req, res, next) {
+    const schema = Joi.object().keys({
+      id: Joi.number().required()
+    });
+    validator(req, res, schema, next);
+  }
 }
+
 export default ValidationMiddleware;

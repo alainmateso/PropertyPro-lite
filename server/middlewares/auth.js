@@ -13,7 +13,7 @@ export const validateToken = (req, res, next) => {
       return next();
 
     } catch (error) {
-      return res.status(401).json({
+      return res.status(400).json({
         status: res.statusCode,
         error: 'Invalid token'
       });
