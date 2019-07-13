@@ -1,0 +1,113 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Property-Pro Lite",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "description": "User sign up",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "User account created successfully"
+          }
+        }
+      }
+    }
+  },
+  "/auth/signin": {
+    "post": {
+      "description": "User sign in",
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Login successful"
+        }
+      }
+    }
+  },
+  "/properties": {
+    "get": {
+      "description": "Get all properties",
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "A complete list of properties"
+        }
+      }
+    }
+  },
+  "/property/:id": {
+    "get": {
+      "description": "Get a particular property",
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "The property you were looking for is here"
+        }
+      }
+    }
+  },
+  "/property?type=PropertyType": {
+    "get": {
+      "description": "Get a specific property type",
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Specific type of properties"
+        }
+      }
+    }
+  },
+  "/property": {
+    "post": {
+      "description": "create a new property ad",
+      "parameters": [],
+      "responses": {
+        "201": {
+          "description": "New property ad posted successfuly"
+        }
+      }
+    }
+  },
+  "/property/:id/": {
+    "patch": {
+      "description": "update property details",
+      "parameters": [],
+      "responses": {
+        "201": {
+          "description": "New details recorded successfully"
+        }
+      }
+    }
+  },
+  "/property/:id/sold": {
+    "patch": {
+      "description": "mark property as sold",
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Property marked as sold"
+        }
+      }
+    }
+  },
+  "/property/:id": {
+    "delete": {
+      "description": "delete a particular property",
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Property deleted successfully"
+        }
+      }
+    }
+  }
+}
