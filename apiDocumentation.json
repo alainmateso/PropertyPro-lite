@@ -1,111 +1,248 @@
 {
-  "openapi": "3.0.2",
+  "swagger": "2.0",
   "info": {
-    "title": "Property-Pro Lite",
-    "version": "1.0"
+    "version": "1.0",
+    "title": "Property-Pro Lite"
   },
-  "servers": [
+  "host": "https://rocky-hollows-87671.herokuapp.com",
+  "tags": [
     {
-      "url": "http://localhost:3000/api/v1"
+      "name": "Authentication"
+    },
+    {
+      "name": "Properties"
     }
   ],
+  "schemes": [
+    "https"
+  ],
   "paths": {
-    "/auth/signup": {
+    "/api/v1/auth/signup": {
       "post": {
-        "description": "User sign up",
-        "parameters": [],
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "user sign up",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "signup",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
         "responses": {
           "201": {
-            "description": "User account created successfully"
+            "description": "User account created Successfully"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/signin": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "user sign in",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "signin",
+            "description": "Sign In Payload",
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful"
+          }
+        }
+      }
+    },
+    "/api/v1/properties": {
+      "get": {
+        "tags": [
+          "Properties"
+        ],
+        "summary": "View all properties",
+        "responses": {
+          "200": {
+            "description": "A complete list of properties"
+          }
+        }
+      }
+    },
+    "/api/v1/property/{id}": {
+      "get": {
+        "tags": [
+          "Properties"
+        ],
+        "summary": "view a particular property",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The property you were looking for is here"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Properties"
+        ],
+        "summary": "Update a property details",
+        "parameters": [
+          {
+            "name": "new details",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/property"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "New details recorded successfully"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Properties"
+        ],
+        "summary": "Delete a particular property",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the property to be delete",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Property deleted successfully"
+          }
+        }
+      }
+    },
+    "/api/v1/property": {
+      "post": {
+        "tags": [
+          "Properties"
+        ],
+        "summary": "Create a new property advert",
+        "responses": {
+          "200": {
+            "description": "New property ad posted successfuly"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Properties"
+        ],
+        "summary": "Get property by type",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "type",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "specific property type"
+          }
+        }
+      }
+    },
+    "/api/v1/property/{id}/sold": {
+      "patch": {
+        "tags": [
+          "Properties"
+        ],
+        "summary": "Mark a particular property as sold",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Property marked as sold"
           }
         }
       }
     }
   },
-  "/auth/signin": {
-    "post": {
-      "description": "User sign in",
-      "parameters": [],
-      "responses": {
-        "200": {
-          "description": "Login successful"
+  "definitions": {
+    "login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
         }
       }
-    }
-  },
-  "/properties": {
-    "get": {
-      "description": "Get all properties",
-      "parameters": [],
-      "responses": {
-        "200": {
-          "description": "A complete list of properties"
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
         }
       }
-    }
-  },
-  "/property/:id": {
-    "get": {
-      "description": "Get a particular property",
-      "parameters": [],
-      "responses": {
-        "200": {
-          "description": "The property you were looking for is here"
-        }
-      }
-    }
-  },
-  "/property?type=PropertyType": {
-    "get": {
-      "description": "Get a specific property type",
-      "parameters": [],
-      "responses": {
-        "200": {
-          "description": "Specific type of properties"
-        }
-      }
-    }
-  },
-  "/property": {
-    "post": {
-      "description": "create a new property ad",
-      "parameters": [],
-      "responses": {
-        "201": {
-          "description": "New property ad posted successfuly"
-        }
-      }
-    }
-  },
-  "/property/:id/": {
-    "patch": {
-      "description": "update property details",
-      "parameters": [],
-      "responses": {
-        "201": {
-          "description": "New details recorded successfully"
-        }
-      }
-    }
-  },
-  "/property/:id/sold": {
-    "patch": {
-      "description": "mark property as sold",
-      "parameters": [],
-      "responses": {
-        "200": {
-          "description": "Property marked as sold"
-        }
-      }
-    }
-  },
-  "/property/:id": {
-    "delete": {
-      "description": "delete a particular property",
-      "parameters": [],
-      "responses": {
-        "200": {
-          "description": "Property deleted successfully"
+    },
+    "property": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "number"
+        },
+        "state": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
         }
       }
     }

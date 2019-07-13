@@ -175,6 +175,21 @@ class PropertyController {
 			error: `No ${req.query.type} properties were found`
 		});
 	}
+
+	static viewMyProperties(req, res) {
+		const foundProperties = properties.filter(item => item.owner == req.user.id)
+		if (foundProperties) {
+			res.status(200).json({
+				status: res.statusCode,
+				message: 'Your properties retrieved successfully',
+				data: foundProperties
+			});
+		}
+		res.status(404).json({
+			status: res.statusCode,
+			error: 'No properties were found'
+		});
+	}
 }
 
 export default PropertyController;

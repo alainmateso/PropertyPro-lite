@@ -19,6 +19,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1', route);
 app.use('/api/v1', userRouter);
 app.use('/documentation', swaggerUI.serve, swaggerUI.setup(documentation));
+app.use('*', (req, res) => {
+	res.status(404).json({
+		status: res.statusCode,
+		error: 'Incorrect route'
+	})
+});
 
 app.listen(PORT, () => {
 	console.log(`server running on port ${PORT}...`);
