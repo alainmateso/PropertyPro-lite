@@ -33,6 +33,7 @@ class ValidationMiddleware {
   static updatePropertyValidation(req, res, next) {
     // Update Property details validation
     const schema = Joi.object().keys({
+      id: Joi.number(),
       price: Joi.number().min(3),
       state: Joi.string().min(3),
       city: Joi.string().min(3),

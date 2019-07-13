@@ -19,19 +19,13 @@ normalUser.token = normalToken
 const invalidToken = 'lnjdsfdkjdsaklalksnkjeksmx';
 
 const newDetails = {
-  price: 1000,
-  state: 'Rda',
-  city: 'Kgl',
-  address: 'Ave 6',
-  type: '2 bedroom'
+  price: 134567,
+  state: 'Kenya'
 }
 
 // Test incorect data types while updating
 const wrongData = {
-  price: '1000',
-  state: 232,
-  address: 'Ave 6',
-  type: '2 bedroom'
+  price: 'kjkjskd'
 }
 
 chai.use(chaiHttp)
@@ -55,15 +49,15 @@ describe('Test Properties endpoints', () => {
       done();
     });
 
-    it('It should return 401 when you try to log in with an invalid token', (done) => {
+    it('It should return 400 when you try to log in with an invalid token', (done) => {
       chai.request(app)
         .patch('/api/v1/property/1')
         .set('Authorization', `Bearer ${invalidToken}`)
         .send(newDetails)
         .end((err, res) => {
-          res.should.have.status(401);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('status').eql(401);
+          res.body.should.have.property('status').eql(400);
           res.body.should.have.property('error').eql('Invalid token');
         });
       done();
@@ -113,6 +107,7 @@ describe('Test Properties endpoints', () => {
         .set('Authorization', `Bearer ${adminToken}`)
         .send(wrongData)
         .end((err, res) => {
+          console.log(JSON.stringify(res))
           res.should.have.status(400);
         });
       done();
@@ -170,15 +165,15 @@ describe('Test Properties endpoints', () => {
       done();
     });
 
-    it('It should return 401 when you try to log in with an invalid token', (done) => {
+    it('It should return 400 when you try to log in with an invalid token', (done) => {
       chai.request(app)
         .patch('/api/v1/property/1')
         .set('Authorization', `Bearer ${invalidToken}`)
         .send(newDetails)
         .end((err, res) => {
-          res.should.have.status(401);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('status').eql(401);
+          res.body.should.have.property('status').eql(400);
           res.body.should.have.property('error').eql('Invalid token');
         });
       done();
@@ -255,15 +250,15 @@ describe('Test Properties endpoints', () => {
       done();
     });
 
-    it('It should return 401 when you try to log in with an invalid token', (done) => {
+    it('It should return 400 when you try to log in with an invalid token', (done) => {
       chai.request(app)
         .patch('/api/v1/property/1')
         .set('Authorization', `Bearer ${invalidToken}`)
         .send(newDetails)
         .end((err, res) => {
-          res.should.have.status(401);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          res.body.should.have.property('status').eql(401);
+          res.body.should.have.property('status').eql(400);
           res.body.should.have.property('error').eql('Invalid token');
         });
       done();

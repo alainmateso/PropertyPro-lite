@@ -25,7 +25,7 @@ router.get('/properties', viewAllProperties);
 router.get('/property/:id', idValidation, viewPropertyById);
 router.post('/property', validateToken, multipartyMiddle, createPropertyValidation, postNewProperty);
 router.delete('/property/:id', validateToken, idValidation, deleteProperty);
-router.patch('/property/:id', validateToken, multipartyMiddle, idValidation, updatePropertyValidation, updatePropertyDetails);
+router.patch('/property/:id', validateToken, multipartyMiddle, updatePropertyValidation, updatePropertyDetails);
 router.patch('/property/:id/sold', validateToken, idValidation, markAsSold);
 router.get('/property', viewPropertiesByType);
 router.get('/myProperties', validateToken, viewMyProperties);
