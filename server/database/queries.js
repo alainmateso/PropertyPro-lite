@@ -22,11 +22,6 @@ users(
   address VARCHAR(255) NOT NULL,
   is_admin BOOLEAN NOT NULL DEFAULT false
 )`;
-export const addUser1 = `INSERT INTO users(email, first_name, last_name, password, phoneNumber, address) values($1, $2, $3, $4, $5, $6)`;
-export const addUser2 = `INSERT INTO users(email, first_name, last_name, password, phoneNumber, address) values($1, $2, $3, $4, $5, $6)`;
-export const addProperty1 = `INSERT INTO properties (owner, status, price, state, city, address, type, created_on, image_url) values($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
-export const addProperty2 = `INSERT INTO properties (owner, status, price, state, city, address, type, created_on, image_url) values($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
-
 
 export const dropPropertyTable = `DROP TABLE IF EXISTS properties`;
 export const dropUserTable = `DROP TABLE IF EXISTS users`;
