@@ -1,5 +1,5 @@
 
-export const createPropertyTable = `CREATE TABLE IF NOT EXISTS properties(
+const createPropertyTable = `CREATE TABLE IF NOT EXISTS properties(
          id SERIAL PRIMARY KEY,
          owner INTEGER,
          status TEXT,
@@ -11,7 +11,7 @@ export const createPropertyTable = `CREATE TABLE IF NOT EXISTS properties(
           created_on TIMESTAMP,
          image_url TEXT
        )`;
-export const createUserTable = `CREATE TABLE IF NOT EXISTS 
+const createUserTable = `CREATE TABLE IF NOT EXISTS 
 users(
   id SERIAL PRIMARY KEY,
   email VARCHAR(255) NOT NULL,
@@ -23,5 +23,15 @@ users(
   is_admin BOOLEAN NOT NULL DEFAULT false
 )`;
 
-export const dropPropertyTable = `DROP TABLE IF EXISTS properties`;
-export const dropUserTable = `DROP TABLE IF EXISTS users`;
+const dropPropertyTable = `DROP TABLE IF EXISTS properties`;
+const dropUserTable = `DROP TABLE IF EXISTS users`;
+
+const getProperties = `SELECT * FROM properties`;
+
+export default {
+  createPropertyTable,
+  createUserTable,
+  dropPropertyTable,
+  dropUserTable,
+  getProperties
+}

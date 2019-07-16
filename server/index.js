@@ -7,6 +7,7 @@ import documentation from '../apiDocumentation.json';
 
 import route from './routes/propertyRoutes';
 import userRouter from './routes/userRoutes';
+import routerV2 from '../server/RoutesV2/propertyRouteV2';
 
 require('dotenv').config();
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1', route);
 app.use('/api/v1', userRouter);
+app.use('/api/v2', routerV2);
 app.use('/documentation', swaggerUI.serve, swaggerUI.setup(documentation));
 app.use('*', (req, res) => {
 	res.status(404).json({

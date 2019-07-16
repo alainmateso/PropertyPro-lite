@@ -1,31 +1,28 @@
-import { Pool } from 'pg';
-import moment from 'moment';
-import {
-  dropPropertyTable,
-  dropUserTable,
-  createPropertyTable,
-  createUserTable,
-  addProperty,
-  addUser
-} from '../database/queries';
+import queries from '../database/queries';
 
-require('dotenv').config();
-const { user, host, database, password, port } = process.env;
+import QueryExecutor from '../database/queryExecutor';
 
-const pool = new Pool({
-  user: user,
-  host: host,
-  database, database,
-  password: password,
-  port: port
-});
+const { queryExecutor } = QueryExecutor
 
-pool.connect(() => console.log('Connected to the database....'));
+const { dropPropertyTable, dropUserTable, createPropertyTable, createUserTable } = queries
 
-export async function db_init() {
-  await pool.query(dropPropertyTable);
-  await pool.query(dropUserTable);
-  await pool.query(createPropertyTable);
-  await pool.query(createUserTable);
-};
+
+const db_init = async () => {
+  try {
+    await queryExecutor(dropPropertyTable);
+  } catch (error) {
+    console.log(error)
+  }
+
+  await queryExecutor(dropUserTable);
+  try {
+    await queryExecutor(createPropertyTable);
+  } catch (error) {
+    console.log(error)
+  }
+  await queryExecutor(createUserTable);
+
+  return;
+}
+
 db_init()
