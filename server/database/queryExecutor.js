@@ -10,8 +10,6 @@ const pool = new Pool({
   port: port
 });
 
-// pool.connect(() => console.log('Connected to the database....'));
-
 class QueryExecutor {
   static async queryExecutor(query, params) {
     try {
