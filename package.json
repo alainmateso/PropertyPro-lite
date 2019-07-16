@@ -9,7 +9,7 @@
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "heroku": "babel-node server/index.js",
-    "testDb": "nodemon --exec babel-node server/database/connector.js"
+    "testDb": "babel-node server/database/connector.js"
   },
   "repository": {
     "type": "git",
