@@ -28,7 +28,8 @@ const dropUserTable = `DROP TABLE IF EXISTS users`;
 
 const getProperties = `SELECT * FROM properties`;
 const getSpecificType = `SELECT * FROM properties WHERE type = $1`;
-const createUserAccount = `INSERT INTO users (email, first_name, last_name, password, phoneNumber, address) values($1, $2, $3, $4, $5, $6) RETURNING *; `
+const createUserAccount = `INSERT INTO users (email, first_name, last_name, password, phoneNumber, address) values($1, $2, $3, $4, $5, $6) RETURNING *; `;
+const loginUser = `SELECT * FROM users WHERE email = $1 AND password = $2`;
 
 export default {
   createPropertyTable,
@@ -37,5 +38,6 @@ export default {
   dropUserTable,
   getProperties,
   getSpecificType,
-  createUserAccount
+  createUserAccount,
+  loginUser
 }
