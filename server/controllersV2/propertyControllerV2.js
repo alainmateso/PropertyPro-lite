@@ -9,7 +9,8 @@ const {
   getSpecificType,
   getSpecificProperty,
   postNewProperty,
-  markPropertyAsSold
+  markPropertyAsSold,
+  deleteProperty
 } = queries
 const { queryExecutor } = QueryExecutor
 
@@ -130,6 +131,30 @@ class PropertyControllerV2 {
       data: rows
     });
   }
+
+  static async deleteProperty(req, res) {
+    const ownerId = req.user.rows[0].id
+    const id = req.params.id;
+    const { rowCount } = await queryExecutor(getSpecificProperty, [id])
+    if (rowCount == 0) {
+      return res.status(404).json({
+        status: res.statusCode,
+        error: 'No property found'
+      });
+    }
+    if (ownerId != id) {
+      return res.status(403).json({
+        status: res.statusCode,
+        message: 'This is not your property'
+      });
+    }
+    const { rows } = await queryExecutor(deleteProperty, [id])
+    return res.status(200).json({
+      status: res.statusCode,
+      message: 'Property deleted successfully'
+    });
+  }
+
 
 
 }
