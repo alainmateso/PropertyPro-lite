@@ -1,3 +1,5 @@
+import moment from 'moment'
+import cloudinary from 'cloudinary'
 import QueryExecutor from '../database/queryExecutor'
 
 import queries from '../database/queries'
@@ -5,9 +7,19 @@ import queries from '../database/queries'
 const {
   getProperties,
   getSpecificType,
-  getSpecificProperty
+  getSpecificProperty,
+  postNewProperty
 } = queries
 const { queryExecutor } = QueryExecutor
+
+const { cloud_name, api_key, api_secret } = process.env;
+
+cloudinary.config({
+  cloud_name: cloud_name,
+  api_key: api_key,
+  api_secret: api_secret
+});
+
 
 class PropertyControllerV2 {
   // view all properties
@@ -60,6 +72,35 @@ class PropertyControllerV2 {
       status: res.statusCode,
       message: 'The property you were looking for is here',
       data: rows
+    });
+  }
+
+  // Post a new property advert
+
+  static async postNewProperty(req, res) {
+    const { price, state, city, address, type } = req.body;
+    const owner = req.user.rows[0].id;
+    if (!req.files.image) {
+      return res.status(400).json({
+        status: res.statusCode,
+        error: 'No image file selected'
+      })
+    }
+    const propertyPhoto = req.files.image.path;
+    cloudinary.uploader.upload(propertyPhoto, async (result, error) => {
+      if (error) {
+        return res.status(400).json({
+          status: res.statusCode,
+          error: error
+        });
+      }
+      const newProperty = [owner, price, state, city, address, type, moment().format(), result.url]
+      const { rows } = await queryExecutor(postNewProperty, newProperty)
+      return res.status(201).json({
+        status: res.statusCode,
+        message: 'New property ad posted successfuly',
+        data: rows
+      });
     });
   }
 

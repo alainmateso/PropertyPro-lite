@@ -19,8 +19,8 @@ class UserControllerV2 {
   static async createUser(req, res) {
     const { email, first_name, last_name, password, phoneNumber, address } = req.body;
     const newUser = [email, first_name, last_name, password, phoneNumber, address]
-    const token = jwt.sign({ ...newUser }, user_secret, { expiresIn: '24h' });
     const { rows } = await queryExecutor(createUserAccount, newUser)
+    const token = jwt.sign({ rows }, user_secret, { expiresIn: '24h' });
     return res.status(201).json({
       status: res.statusCode,
       message: 'User account created Successfully',
@@ -39,7 +39,7 @@ class UserControllerV2 {
         message: 'Invalid email or password'
       })
     }
-    const token = jwt.sign({ ...rows }, user_secret, { expiresIn: '24h' });
+    const token = jwt.sign({ rows }, user_secret, { expiresIn: '24h' });
     return res.status(201).json({
       status: res.statusCode,
       message: 'Login sucessful',
