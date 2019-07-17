@@ -30,6 +30,7 @@ const getProperties = `SELECT * FROM properties`;
 const getSpecificType = `SELECT * FROM properties WHERE type = $1`;
 const createUserAccount = `INSERT INTO users (email, first_name, last_name, password, phoneNumber, address) values($1, $2, $3, $4, $5, $6) RETURNING *; `;
 const loginUser = `SELECT * FROM users WHERE email = $1 AND password = $2`;
+const getSpecificProperty = `SELECT * FROM properties WHERE id = $1`;
 
 export default {
   createPropertyTable,
@@ -39,5 +40,6 @@ export default {
   getProperties,
   getSpecificType,
   createUserAccount,
-  loginUser
+  loginUser,
+  getSpecificProperty
 }
