@@ -33,7 +33,6 @@ class UserControllerV2 {
     const { email, password } = req.body;
     const credentials = [email, password]
     const { rows, rowCount } = await queryExecutor(loginUser, credentials)
-    console.log(rowCount);
     if (rowCount == 0) {
       return res.status(400).json({
         status: res.statusCode,
