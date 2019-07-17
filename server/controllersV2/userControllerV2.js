@@ -4,7 +4,8 @@ import QueryExecutor from '../database/queryExecutor'
 import queries from '../database/queries'
 
 const {
-  createUserAccount
+  createUserAccount,
+  loginUser
 } = queries
 
 const { queryExecutor } = QueryExecutor
@@ -23,6 +24,25 @@ class UserControllerV2 {
     return res.status(201).json({
       status: res.statusCode,
       message: 'User account created Successfully',
+      token: token,
+      data: rows
+    });
+  }
+
+  static async userLogin(req, res) {
+    const { email, password } = req.body;
+    const credentials = [email, password]
+    const { rows, rowCount } = await queryExecutor(loginUser, credentials)
+    if (rowCount == 0) {
+      return res.status(400).json({
+        status: res.statusCode,
+        message: 'Invalid email or password'
+      })
+    }
+    const token = jwt.sign({ ...rows }, user_secret, { expiresIn: '24h' });
+    return res.status(201).json({
+      status: res.statusCode,
+      message: 'Login sucessful',
       token: token,
       data: rows
     });
