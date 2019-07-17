@@ -8,7 +8,8 @@ const {
   getProperties,
   getSpecificType,
   getSpecificProperty,
-  postNewProperty
+  postNewProperty,
+  markPropertyAsSold
 } = queries
 const { queryExecutor } = QueryExecutor
 
@@ -103,6 +104,33 @@ class PropertyControllerV2 {
       });
     });
   }
+
+  // Update a property's details
+
+  static async markPropertyAsSold(req, res) {
+    const ownerId = req.user.rows[0].id
+    const id = req.params.id;
+    const { rowCount } = await queryExecutor(getSpecificProperty, [id])
+    if (rowCount == 0) {
+      return res.status(404).json({
+        status: res.statusCode,
+        error: 'No property found'
+      });
+    }
+    if (ownerId != id) {
+      return res.status(403).json({
+        status: res.statusCode,
+        message: 'This is not your property'
+      });
+    }
+    const { rows } = await queryExecutor(markPropertyAsSold, [id])
+    return res.status(201).json({
+      status: res.statusCode,
+      message: 'Property marked as sold',
+      data: rows
+    });
+  }
+
 
 }
 

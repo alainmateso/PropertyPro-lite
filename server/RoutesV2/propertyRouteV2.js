@@ -8,7 +8,8 @@ const {
   getAllProperties,
   getSpecificType,
   getSpecificProperty,
-  postNewProperty
+  postNewProperty,
+  markPropertyAsSold
 } = PropertyControllerV2;
 
 const {
@@ -24,7 +25,7 @@ routerV2.get('/properties', getAllProperties);
 routerV2.get('/property', getSpecificType);
 routerV2.get('/property/:id', idValidation, getSpecificProperty);
 routerV2.post('/property', validateToken, multipartyMiddle, createPropertyValidation, postNewProperty);
+routerV2.patch('/property/:id/sold', validateToken, idValidation, markPropertyAsSold);
 
-// routerV2.post('/property', validateToken, multipartyMiddle, createPropertyValidation, postNewProperty);
 
 export default routerV2;
