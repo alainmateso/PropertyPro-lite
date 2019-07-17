@@ -27,11 +27,13 @@ const dropPropertyTable = `DROP TABLE IF EXISTS properties`;
 const dropUserTable = `DROP TABLE IF EXISTS users`;
 
 const getProperties = `SELECT * FROM properties`;
+const getSpecificType = `SELECT * FROM properties WHERE type = $1`
 
 export default {
   createPropertyTable,
   createUserTable,
   dropPropertyTable,
   dropUserTable,
-  getProperties
+  getProperties,
+  getSpecificType
 }
