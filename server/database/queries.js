@@ -32,6 +32,7 @@ const createUserAccount = `INSERT INTO users (email, first_name, last_name, pass
 const loginUser = `SELECT * FROM users WHERE email = $1 AND password = $2`;
 const getSpecificProperty = `SELECT * FROM properties WHERE id = $1`;
 const postNewProperty = `INSERT INTO properties (owner, price, state, city, address, type, created_on, image_url) values($1, $2 , $3, $4, $5, $6, $7, $8) RETURNING *`;
+const markPropertyAsSold = `UPDATE properties SET status = 'sold' WHERE id = $1 RETURNING *`;
 
 export default {
   createPropertyTable,
@@ -43,5 +44,6 @@ export default {
   createUserAccount,
   loginUser,
   getSpecificProperty,
-  postNewProperty
+  postNewProperty,
+  markPropertyAsSold
 }
