@@ -2,7 +2,7 @@
 const createPropertyTable = `CREATE TABLE IF NOT EXISTS properties(
          id SERIAL PRIMARY KEY,
          owner INTEGER,
-         status TEXT,
+         status TEXT DEFAULT 'available',
          price INTEGER NOT NULL,
          state VARCHAR (255) NOT NULL,
          city VARCHAR (255) NOT NULL,
@@ -31,6 +31,7 @@ const getSpecificType = `SELECT * FROM properties WHERE type = $1`;
 const createUserAccount = `INSERT INTO users (email, first_name, last_name, password, phoneNumber, address) values($1, $2, $3, $4, $5, $6) RETURNING *; `;
 const loginUser = `SELECT * FROM users WHERE email = $1 AND password = $2`;
 const getSpecificProperty = `SELECT * FROM properties WHERE id = $1`;
+const postNewProperty = `INSERT INTO properties (owner, price, state, city, address, type, created_on, image_url) values($1, $2 , $3, $4, $5, $6, $7, $8) RETURNING *`;
 
 export default {
   createPropertyTable,
@@ -41,5 +42,6 @@ export default {
   getSpecificType,
   createUserAccount,
   loginUser,
-  getSpecificProperty
+  getSpecificProperty,
+  postNewProperty
 }
