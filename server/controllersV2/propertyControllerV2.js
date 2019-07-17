@@ -1,4 +1,3 @@
-import { Pool } from 'pg';
 import QueryExecutor from '../database/queryExecutor'
 
 import queries from '../database/queries'

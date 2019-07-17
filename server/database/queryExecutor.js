@@ -15,7 +15,13 @@ class QueryExecutor {
     try {
       return await pool.query(query, params);
     } catch (err) {
-      return err;
+      return (req, res) => {
+        res.status(500).json({
+          status: res.statusCode,
+          message: 'An error occured'
+        })
+        console.log(`Here's what happened => ${err}`);
+      }
     }
   }
 }
