@@ -4,7 +4,8 @@ import queries from '../database/queries'
 
 const {
   getProperties,
-  getSpecificType
+  getSpecificType,
+  getSpecificProperty
 } = queries
 const { queryExecutor } = QueryExecutor
 
@@ -40,6 +41,24 @@ class PropertyControllerV2 {
     return res.status(200).json({
       status: res.statusCode,
       message: `${type} properties retrieved successfully `,
+      data: rows
+    });
+  }
+
+  //view a specific property
+
+  static async getSpecificProperty(req, res) {
+    const id = req.params.id;
+    const { rows, rowCount } = await queryExecutor(getSpecificProperty, [id]);
+    if (rowCount == 0) {
+      return res.status(404).json({
+        status: res.statusCode,
+        error: 'No property found'
+      });
+    }
+    return res.status(200).json({
+      status: res.statusCode,
+      message: 'The property you were looking for is here',
       data: rows
     });
   }
