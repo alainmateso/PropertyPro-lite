@@ -32,13 +32,13 @@ class UserController {
     const { email, password } = req.body;
     const credentials = [email, password]
     const { rows, rowCount } = await queryExecutor(loginUser, credentials)
+    const token = jwt.sign({ rows }, user_secret, { expiresIn: '24h' });
     if (rowCount == 0) {
       return res.status(400).json({
         status: res.statusCode,
         message: 'Invalid email or password'
       })
     }
-    const token = jwt.sign({ rows }, user_secret, { expiresIn: '24h' });
     return res.status(200).json({
       status: res.statusCode,
       message: 'Login sucessful',

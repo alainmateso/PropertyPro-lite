@@ -13,7 +13,8 @@ const {
 	getSpecificProperty,
 	postNewProperty,
 	markPropertyAsSold,
-	deleteProperty
+	deleteProperty,
+	updatePropertyDetails
 } = queries
 
 const { queryExecutor } = QueryExecutor
@@ -161,35 +162,34 @@ class PropertyController {
 		});
 	}
 
-
 	// update property details
 
-	static updatePropertyDetails(req, res) {
-		const is_admin = req.user.is_admin;
-		const ownerID = req.user.id;
+	static async updatePropertyDetails(req, res) {
+		const [user] = req.user.rows
+		const { price, state, city, address, type } = req.body
+		const { is_admin, id: userId } = user
 		const id = req.params.id;
-		const property = properties.find(item => item.id == id)
-		if (property) {
-			if (ownerID == id || is_admin == true) {
-				const newDetails = Object.keys(req.body);
-				newDetails.forEach(newDetail => {
-					property[newDetail] = req.body[newDetail]
-				});
-				return res.status(201).json({
-					status: res.statusCode,
-					message: 'New details recorded successfully',
-					data: property
-				});
-			}
-			return res.status(403).json({
+		const { rows, rowCount } = await queryExecutor(getSpecificProperty, [id])
+		if (rowCount == 0) {
+			return res.status(404).json({
 				status: res.statusCode,
-				message: 'This is not your property'
-			})
+				error: 'No property found'
+			});
 		}
-		return res.status(404).json({
+		const owner = rows[0].owner
+		const newDetails = [price, state, city, address, type, id]
+		if (owner == userId || is_admin == true) {
+			const { rows } = await queryExecutor(updatePropertyDetails, newDetails)
+			return res.status(201).json({
+				status: res.statusCode,
+				message: 'New details recorded successfully',
+				data: rows
+			});
+		}
+		return res.status(403).json({
 			status: res.statusCode,
-			error: 'No property found'
-		});
+			message: 'This is not your property'
+		})
 	}
 
 }
