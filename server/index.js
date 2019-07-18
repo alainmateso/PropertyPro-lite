@@ -4,11 +4,11 @@
 import express from 'express';
 import swaggerUI from 'swagger-ui-express';
 import documentation from '../apiDocumentation.json';
+import dotENV from 'dotenv';
+import propertyRoutes from '../server/routes/propertyRoutes';
+import userRoutes from '../server/routes/userRoutes'
 
-import routerV2 from '../server/RoutesV2/propertyRouteV2';
-import userRouterV2 from '../server/RoutesV2/userRoutesV2'
-
-require('dotenv').config();
+dotENV.config();
 
 const PORT = process.env.PORT || 3000;
 
@@ -16,8 +16,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/v2', routerV2);
-app.use('/api/v2', userRouterV2);
+app.use('/api/v2', userRoutes);
+app.use('/api/v2', propertyRoutes);
 app.use('/documentation', swaggerUI.serve, swaggerUI.setup(documentation));
 app.use('*', (req, res) => {
 	res.status(404).json({

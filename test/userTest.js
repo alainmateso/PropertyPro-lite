@@ -1,16 +1,14 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import jwt from 'jsonwebtoken';
-require('dotenv').config();
-
 import app from '../server';
-import users from '../server/data/users'
 
-const { user_secret } = process.env
+chai.use(chaiHttp);
+chai.should();
+
 const newUser = {
   email: 'person@example.com',
-  first_name: 'person',
-  last_name: 'person',
+  first_name: 'Test',
+  last_name: 'user',
   password: 'qwertyuiop',
   phoneNumber: '0780000000',
   address: 'Telecom House'
@@ -27,63 +25,58 @@ const wrongData = {
 }
 
 const correctCredentials = {
-  email: 'alain@propertyprolite.com',
-  password: 'asdfghjkl'
+  email: 'person@example.com',
+  password: 'qwertyuiop'
 }
 const wrongCredentials = {
   email: 'alain',
   password: 'mnbvcxz'
-}
-
-chai.use(chaiHttp)
-const should = chai.should()
+};
 
 describe('Test Users endpoints', () => {
 
   describe('Test User sign up route', () => {
     it('It should add a new user to the app', (done) => {
       chai.request(app)
-        .post('/api/v1/auth/signup')
+        .post('/api/v2/auth/signup')
         .send(newUser)
         .end((err, res) => {
           res.should.have.status(201);
           res.body.should.be.a('object');
           res.body.should.have.property('status').eql(201);
+          done();
         });
-      done();
     });
     it('It should return 400 when you try filling incorrect data', (done) => {
       chai.request(app)
-        .post('/api/v1/auth/signup')
+        .post('/api/v2/auth/signup')
         .send(wrongData)
         .end((err, res) => {
           res.should.have.status(400);
+          done();
         });
-      done();
     });
   });
   describe('Test User sign in route', () => {
     it('It should log in the user to the app', (done) => {
       chai.request(app)
-        .post('/api/v1/auth/signin')
+        .post('/api/v2/auth/signin')
         .send(correctCredentials)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('status').eql(200);
+          done();
         });
-      done();
     });
     it('It should return 400 when you try filling incorrect credentials', (done) => {
       chai.request(app)
-        .post('/api/v1/auth/signin')
+        .post('/api/v2/auth/signin')
         .send(wrongCredentials)
         .end((err, res) => {
           res.should.have.status(400);
+          done();
         });
-      done();
     });
   });
-
-
 });

@@ -6,10 +6,10 @@
   "scripts": {
     "start": "nodemon --exec babel-node server/index.js",
     "build": "mkdir dist && babel server -s -d dist",
-    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --exit",
+    "testDb": "babel-node server/database/connector.js",
+    "test": "npm run testDb && nyc --reporter=html --reporter=text mocha ./test/* --require @babel/register --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "heroku": "babel-node server/index.js",
-    "testDb": "babel-node server/database/connector.js"
+    "heroku": "babel-node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,8 @@
     "nyc": "^14.1.1"
   },
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
     "@hapi/joi": "^15.1.0",
     "cloudinary": "^1.14.0",
     "connect-multiparty": "^2.2.0",

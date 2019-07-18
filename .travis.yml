@@ -9,8 +9,7 @@ services:
   - postgresql
 
 before_script:
-  - psql -c 'CREATE DATABASE Property-ProLite;' -U postgres
-  - npm run testDb
+  - psql -c 'CREATE DATABASE PropertyProLite;' -U postgres
 
 script:
   - echo "test starts....."
