@@ -1,4 +1,3 @@
-import properties from '../data/properties';
 import moment from 'moment';
 import dotENV from 'dotenv';
 import cloudinary from 'cloudinary';
@@ -38,6 +37,14 @@ class PropertyController {
 				message: 'No properties were found'
 			});
 		}
+		if (rowCount == 1) {
+			const [results] = rows
+			return res.status(200).json({
+				status: res.statusCode,
+				message: `A complete list of properties`,
+				data: results
+			});
+		}
 		return res.status(200).json({
 			status: res.statusCode,
 			message: 'A complete list of properties',
@@ -56,6 +63,15 @@ class PropertyController {
 				message: `No ${type} properties were found`
 			});
 		}
+		if (rowCount == 1) {
+			const [results] = rows
+			return res.status(200).json({
+				status: res.statusCode,
+				message: `${type} properties retrieved successfully `,
+				data: results
+			});
+		}
+
 		return res.status(200).json({
 			status: res.statusCode,
 			message: `${type} properties retrieved successfully `,
@@ -75,10 +91,11 @@ class PropertyController {
 				error: 'No property found'
 			});
 		}
+		const [results] = rows
 		return res.status(200).json({
 			status: res.statusCode,
 			message: 'The property you were looking for is here',
-			data: rows
+			data: results
 		});
 	}
 
@@ -103,10 +120,11 @@ class PropertyController {
 			}
 			const newProperty = [owner, price, state, city, address, type, moment().format(), result.url]
 			const { rows } = await queryExecutor(postNewProperty, newProperty)
+			const [results] = rows
 			return res.status(201).json({
 				status: res.statusCode,
 				message: 'New property ad posted successfuly',
-				data: rows
+				data: results
 			});
 		});
 	}
@@ -114,60 +132,6 @@ class PropertyController {
 	// Mark property as sold
 
 	static async markPropertyAsSold(req, res) {
-		const ownerId = req.user.rows[0].id
-		const id = req.params.id;
-		const { rowCount } = await queryExecutor(getSpecificProperty, [id])
-		if (rowCount == 0) {
-			return res.status(404).json({
-				status: res.statusCode,
-				error: 'No property found'
-			});
-		}
-		if (ownerId != id) {
-			return res.status(403).json({
-				status: res.statusCode,
-				message: 'This is not your property'
-			});
-		}
-		const { rows } = await queryExecutor(markPropertyAsSold, [id])
-		return res.status(201).json({
-			status: res.statusCode,
-			message: 'Property marked as sold',
-			data: rows
-		});
-	}
-
-	// Delete property
-
-	static async deleteProperty(req, res) {
-		const ownerId = req.user.rows[0].id
-		const id = req.params.id;
-		const { rowCount } = await queryExecutor(getSpecificProperty, [id])
-		if (rowCount == 0) {
-			return res.status(404).json({
-				status: res.statusCode,
-				error: 'No property found'
-			});
-		}
-		if (ownerId != id) {
-			return res.status(403).json({
-				status: res.statusCode,
-				message: 'This is not your property'
-			});
-		}
-		const { rows } = await queryExecutor(deleteProperty, [id])
-		return res.status(200).json({
-			status: res.statusCode,
-			message: 'Property deleted successfully'
-		});
-	}
-
-	// update property details
-
-	static async updatePropertyDetails(req, res) {
-		const [user] = req.user.rows
-		const { price, state, city, address, type } = req.body
-		const { is_admin, id: userId } = user
 		const id = req.params.id;
 		const { rows, rowCount } = await queryExecutor(getSpecificProperty, [id])
 		if (rowCount == 0) {
@@ -176,20 +140,89 @@ class PropertyController {
 				error: 'No property found'
 			});
 		}
-		const owner = rows[0].owner
-		const newDetails = [price, state, city, address, type, id]
-		if (owner == userId || is_admin == true) {
+		const [results] = rows
+		const owner = results.owner
+		const [user] = req.user.rows
+		const userId = user.id
+		if (owner != userId) {
+			return res.status(403).json({
+				status: res.statusCode,
+				message: 'This is not your property'
+			});
+		} else {
+			const { rows } = await queryExecutor(markPropertyAsSold, [id])
+			const [results] = rows
+			return res.status(201).json({
+				status: res.statusCode,
+				message: 'Property marked as sold',
+				data: results
+			});
+		}
+
+	}
+
+	// Delete property
+
+	static async deleteProperty(req, res) {
+		const id = req.params.id;
+		const { rows, rowCount } = await queryExecutor(getSpecificProperty, [id])
+		if (rowCount == 0) {
+			return res.status(404).json({
+				status: res.statusCode,
+				error: 'No property found'
+			});
+		}
+		const [results] = rows
+		const owner = results.owner
+		const [user] = req.user.rows
+		const userId = user.id
+		if (owner != userId) {
+			return res.status(403).json({
+				status: res.statusCode,
+				message: 'This is not your property'
+			});
+		} else {
+			await queryExecutor(deleteProperty, [id])
+			return res.status(200).json({
+				status: res.statusCode,
+				message: 'Property deleted successfully'
+			});
+		}
+
+	}
+
+	// update property details
+
+	static async updatePropertyDetails(req, res) {
+		const { price, state, city, address, type } = req.body
+		const id = req.params.id;
+		const { rows, rowCount } = await queryExecutor(getSpecificProperty, [id])
+		if (rowCount == 0) {
+			return res.status(404).json({
+				status: res.statusCode,
+				error: 'No property found'
+			});
+		}
+		const [results] = rows
+		const owner = results.owner
+		const [user] = req.user.rows
+		const userId = user.id
+		if (owner != userId) {
+			return res.status(403).json({
+				status: res.statusCode,
+				message: 'This is not your property'
+			})
+		} else {
+			const newDetails = [price, state, city, address, type, id]
 			const { rows } = await queryExecutor(updatePropertyDetails, newDetails)
+			const [results] = rows
 			return res.status(201).json({
 				status: res.statusCode,
 				message: 'New details recorded successfully',
-				data: rows
+				data: results
 			});
 		}
-		return res.status(403).json({
-			status: res.statusCode,
-			message: 'This is not your property'
-		})
+
 	}
 
 }
