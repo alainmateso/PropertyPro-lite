@@ -165,9 +165,9 @@ class PropertyController {
 	// update property details
 
 	static async updatePropertyDetails(req, res) {
+		const [user] = req.user.rows
 		const { price, state, city, address, type } = req.body
-		const is_admin = req.user.rows[0].is_admin;
-		const userId = req.user.rows[0].id;
+		const { is_admin, id: userId } = user
 		const id = req.params.id;
 		const { rows, rowCount } = await queryExecutor(getSpecificProperty, [id])
 		if (rowCount == 0) {
