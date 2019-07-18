@@ -21,11 +21,11 @@ class ValidationMiddleware {
   // Create new Property Validation
   static createPropertyValidation(req, res, next) {
     const schema = Joi.object().keys({
-      price: Joi.number().required(),
-      state: Joi.string().required(),
-      city: Joi.string().required(),
-      address: Joi.string().required(),
-      type: Joi.string().required()
+      price: Joi.number().min(1).max(999999999999).required(),
+      state: Joi.string().trim().min(2).max(50).required(),
+      city: Joi.string().trim().min(2).max(50).required(),
+      address: Joi.string().trim().min(2).max(50).required(),
+      type: Joi.string().trim().regex(/^(1 bedroom|2 bedrooms|3 bedrooms|4 bedrooms|5 bedrooms|Villa|Apartment|Others)$/, 'property type').required()
     });
     validator(req, res, schema, next);
   }
@@ -33,12 +33,12 @@ class ValidationMiddleware {
   static updatePropertyValidation(req, res, next) {
     // Update Property details validation
     const schema = Joi.object().keys({
-      id: Joi.number(),
-      price: Joi.number().min(3),
-      state: Joi.string().min(3),
-      city: Joi.string().min(3),
-      address: Joi.string().min(3),
-      type: Joi.string().min(3)
+      id: Joi.number().min(1).max(999999999999),
+      price: Joi.number().min(1).max(999999999999).required(),
+      state: Joi.string().trim().min(2).max(50).required(),
+      city: Joi.string().trim().min(2).max(50).required(),
+      address: Joi.string().trim().min(2).max(50).required(),
+      type: Joi.string().trim().regex(/^(1 bedroom|2 bedrooms|3 bedrooms|4 bedrooms|5 bedrooms|Villa|Apartment|Others)$/, 'property type').required()
     });
     validator(req, res, schema, next);
   }
@@ -47,17 +47,17 @@ class ValidationMiddleware {
   static userSignUpValidation(req, res, next) {
     const schema = Joi.object().keys({
       email: Joi.string().email().required(),
-      first_name: Joi.string().min(3).required(),
-      last_name: Joi.string().min(3).required(),
-      password: Joi.string().alphanum().min(6).required(),
+      first_name: Joi.string().alphanum().trim().min(3).required(),
+      last_name: Joi.string().alphanum().trim().min(3).required(),
+      password: Joi.string().min(6).max(50).required(),
       phoneNumber: Joi.number().required(),
-      address: Joi.string().required()
+      address: Joi.string().trim().min(2).max(50).required(),
     });
     validator(req, res, schema, next);
   }
   static idValidation(req, res, next) {
     const schema = Joi.object().keys({
-      id: Joi.number().required()
+      id: Joi.number().min(1).max(999999999999)
     });
     validator(req, res, schema, next);
   }
