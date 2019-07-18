@@ -9,16 +9,32 @@ chai.should();
 
 const newDetails = {
   price: 134567,
-  state: 'Kenya'
+  state: 'Kenya',
+  city: 'Nairobi',
+  address: 'N 12 st',
+  type: '3 bedrooms'
+};
+const wrongData = {
+  state: 134567
 };
 
 const Admin = {
   email: 'admin@demo.com',
-  password: 'qwertyuiop',
+  password: 'qwertyuiop'
 };
+
+const newUser = {
+  email: 'test@user.com',
+  first_name: 'Test',
+  last_name: 'user',
+  password: 'mnbvcxz',
+  phoneNumber: '0780000000',
+  address: 'Telecom House'
+}
 
 const invalidToken = 'sasdsfasdfasdfewfwqewq';
 let adminToken;
+let normalToken;
 
 describe('Test Properties endpoints', () => {
 
@@ -27,23 +43,23 @@ describe('Test Properties endpoints', () => {
       .post('/api/v2/auth/signin')
       .send(Admin)
       .end((err, res) => {
-        adminToken = res.body.token;
+        adminToken = res.body.data.token;
+        done();
+      });
+  });
+
+  it('It should return 404 when you try to hit an non existent route', (done) => {
+    chai.request(app)
+      .get('/api/v2/amen')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('error').eql('Incorrect route')
         done();
       });
   });
 
   describe('Test UPDATE property route', () => {
-
-    it('It should return 404 when you try to hit an non existent route', (done) => {
-      chai.request(app)
-        .get('/api/v2/amen')
-        .end((err, res) => {
-          res.should.have.status(404);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error').eql('Incorrect route')
-          done();
-        });
-    });
 
     it('It should return 401 when you try to update without loging in', (done) => {
       chai.request(app)
@@ -68,6 +84,64 @@ describe('Test Properties endpoints', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('status').eql(400);
           res.body.should.have.property('error').eql('Invalid token');
+          done();
+        });
+    });
+
+    it('It should UPDATE a property', (done) => {
+      chai.request(app)
+        .patch('/api/v2/property/1')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send(newDetails)
+        .end((err, res) => {
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          res.body.should.have.property('status').eql(201);
+          done();
+        });
+    });
+
+    it('It should sign up a regular user', (done) => {
+      chai.request(app)
+        .post('/api/v2/auth/signup')
+        .send(newUser)
+        .end((err, res) => {
+          normalToken = res.body.data.token;
+          done();
+        });
+    });
+
+    it('It should return 403 when you try to update a property which is not yours', (done) => {
+      chai.request(app)
+        .patch('/api/v2/property/1')
+        .set('Authorization', `Bearer ${normalToken}`)
+        .send(newDetails)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.a('object');
+          res.body.should.have.property('status').eql(403);
+          done();
+        });
+    });
+
+    it('It should return 404 when you try to update a non existent property', (done) => {
+      chai.request(app)
+        .patch('/api/v2/property/100')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send(newDetails)
+        .end((err, res) => {
+          res.should.have.status(404);
+          done();
+        });
+    });
+
+    it('It should return 400 when you try to use wrong data types', (done) => {
+      chai.request(app)
+        .patch('/api/v2/property/1')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send(wrongData)
+        .end((err, res) => {
+          res.should.have.status(400);
           done();
         });
     });
@@ -139,7 +213,7 @@ describe('Test Properties endpoints', () => {
 
     it('It should return 404 when trying to mark a non existent property as sold', (done) => {
       chai.request(app)
-        .patch('/api/v2/property/10/sold')
+        .patch('/api/v2/property/100/sold')
         .set('Authorization', `Bearer ${adminToken}`)
         .end((err, res) => {
           res.should.have.status(404);
@@ -153,7 +227,7 @@ describe('Test Properties endpoints', () => {
   describe('Test GET properties by type', () => {
     it('It should get properties of a specific type', (done) => {
       chai.request(app)
-        .get('/api/v2/property?type=3 bedroom')
+        .get('/api/v2/property?type=3 bedrooms')
         .end((err, res) => {
           res.should.have.status(200);
           done();
