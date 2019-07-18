@@ -35,6 +35,7 @@ const getSpecificProperty = `SELECT * FROM properties WHERE id = $1`;
 const postNewProperty = `INSERT INTO properties (owner, price, state, city, address, type, created_on, image_url) values($1, $2 , $3, $4, $5, $6, $7, $8) RETURNING *`;
 const markPropertyAsSold = `UPDATE properties SET status = 'sold' WHERE id = $1 RETURNING *`;
 const deleteProperty = `DELETE FROM properties where id = $1`;
+const updatePropertyDetails = `UPDATE properties SET price = $1, state = $2, city = $3, address = $4, type = $5 where id = $6 RETURNING *`;
 
 export default {
   createPropertyTable,
@@ -49,5 +50,6 @@ export default {
   getSpecificProperty,
   postNewProperty,
   markPropertyAsSold,
-  deleteProperty
+  deleteProperty,
+  updatePropertyDetails
 }
