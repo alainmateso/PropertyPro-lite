@@ -1,70 +1,52 @@
-import Joi from '@hapi/joi';
 import jwt from 'jsonwebtoken';
-import lodash from 'lodash';
-import omit from 'lodash.omit';
+import dotENV from 'dotenv'
+import QueryExecutor from '../database/queryExecutor'
+import queries from '../database/queries'
 
-import users from '../data/users';
+const {
+  createUserAccount,
+  loginUser
+} = queries
 
-require('dotenv').config();
+const { queryExecutor } = QueryExecutor
+
+dotENV.config();
 
 const { user_secret } = process.env;
 
 class UserController {
-  static userSignUp(req, res) {
+  static async createUser(req, res) {
     const { email, first_name, last_name, password, phoneNumber, address } = req.body;
-    const newUser = { token, id: users.length + 1, email, first_name, last_name, password, phoneNumber, address, is_admin: false }
-    const token = jwt.sign({ ...newUser }, user_secret, { expiresIn: '24h' });
-    newUser.token = token;
-    users.push(newUser);
-    const result = omit(newUser, 'password');
+    const newUser = [email, first_name, last_name, password, phoneNumber, address]
+    const { rows } = await queryExecutor(createUserAccount, newUser)
+    const token = jwt.sign({ rows }, user_secret, { expiresIn: '24h' });
     return res.status(201).json({
       status: res.statusCode,
       message: 'User account created Successfully',
-      data: result
+      token: token,
+      data: rows
     });
   }
 
-  static userSignIn(req, res) {
+  static async userLogin(req, res) {
     const { email, password } = req.body;
-    const logedUser = users.find(member => member.email == email && member.password == password);
-    const token = jwt.sign({ ...logedUser }, user_secret, { expiresIn: '24h' });
-    if (!logedUser) {
+    const credentials = [email, password]
+    const { rows, rowCount } = await queryExecutor(loginUser, credentials)
+    if (rowCount == 0) {
       return res.status(400).json({
         status: res.statusCode,
-        error: 'Invalid email or password'
-      });
+        message: 'Invalid email or password'
+      })
     }
-    logedUser.token = token;
-    const user = omit(logedUser, 'password')
-    res.status(200).json({
+    const token = jwt.sign({ rows }, user_secret, { expiresIn: '24h' });
+    return res.status(200).json({
       status: res.statusCode,
-      message: 'Login successful',
-      token: user
+      message: 'Login sucessful',
+      token: token,
+      data: rows
     });
   }
 
-  static resetPassword(req, res) {
-    const { email, newPassword, confirmPassword } = req.body;
-    const user = users.find(member => member.email == email)
-    if (user) {
-      if (newPassword == confirmPassword) {
-        user.password = newPassword
-        res.status(200).json({
-          status: res.statusCode,
-          message: 'Password was reset successfully',
-          data: `Your new password is ${user.password}`
-        });
-      }
-      res.status(400).json({
-        status: res.statusCode,
-        error: 'Password mismatch'
-      });
-    }
-    res.status(400).json({
-      status: res.statusCode,
-      error: 'User not found!'
-    })
-  }
 }
 
 export default UserController;

@@ -29,6 +29,7 @@ const dropUserTable = `DROP TABLE IF EXISTS users`;
 const getProperties = `SELECT * FROM properties`;
 const getSpecificType = `SELECT * FROM properties WHERE type = $1`;
 const createUserAccount = `INSERT INTO users (email, first_name, last_name, password, phoneNumber, address) values($1, $2, $3, $4, $5, $6) RETURNING *; `;
+const createUserAdmin = `INSERT INTO users (email, first_name, last_name, password, phoneNumber, address, is_admin) values($1, $2, $3, $4, $5, $6, $7) RETURNING *; `;
 const loginUser = `SELECT * FROM users WHERE email = $1 AND password = $2`;
 const getSpecificProperty = `SELECT * FROM properties WHERE id = $1`;
 const postNewProperty = `INSERT INTO properties (owner, price, state, city, address, type, created_on, image_url) values($1, $2 , $3, $4, $5, $6, $7, $8) RETURNING *`;
@@ -43,6 +44,7 @@ export default {
   getProperties,
   getSpecificType,
   createUserAccount,
+  createUserAdmin,
   loginUser,
   getSpecificProperty,
   postNewProperty,

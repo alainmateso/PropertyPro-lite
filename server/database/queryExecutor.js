@@ -1,14 +1,8 @@
 import { Pool } from 'pg';
 require('dotenv').config();
 
-const { user, host, database, password, port } = process.env;
-const pool = new Pool({
-  user: user,
-  host: host,
-  database, database,
-  password: password,
-  port: port
-});
+const { DATABASE_URL } = process.env;
+const pool = new Pool({ connectionString: DATABASE_URL });
 
 class QueryExecutor {
   static async queryExecutor(query, params) {
