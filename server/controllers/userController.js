@@ -7,7 +7,8 @@ import queries from '../database/queries'
 const {
   createUserAccount,
   loginUser,
-  selectUserByEmail
+  selectUserByEmail,
+  updateUserCredentials
 } = queries
 
 const { queryExecutor } = QueryExecutor
@@ -59,6 +60,32 @@ class UserController {
       message: 'Login sucessful',
       data: user
     });
+  }
+
+  static async changePassword(req, res) {
+    const email = req.params.email
+    const { oldPassword, newPassword } = req.body;
+    const newCredentials = [newPassword, email]
+    let { rows, rowCount } = await queryExecutor(selectUserByEmail, [email])
+    if (rowCount == 0) {
+      return res.status(400).json({
+        status: res.statusCode,
+        message: 'Invalid email'
+      })
+    }
+    const [results] = rows
+    if (oldPassword !== results.password) {
+      return res.status(400).json({
+        status: res.statusCode,
+        error: 'Old password is incorrect'
+      })
+    } else {
+      await queryExecutor(updateUserCredentials, newCredentials)
+      return res.status(200).json({
+        status: res.statusCode,
+        message: 'Password Changed successfully'
+      });
+    }
   }
 
 }

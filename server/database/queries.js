@@ -37,6 +37,7 @@ const markPropertyAsSold = `UPDATE properties SET status = 'sold' WHERE id = $1 
 const deleteProperty = `DELETE FROM properties where id = $1`;
 const updatePropertyDetails = `UPDATE properties SET price = $1, state = $2, city = $3, address = $4, type = $5 where id = $6 RETURNING *`;
 const selectUserByEmail = `SELECT * FROM users WHERE email = $1`;
+const updateUserCredentials = `UPDATE users SET password = $1 WHERE email = $2`;
 
 export default {
   createPropertyTable,
@@ -53,5 +54,6 @@ export default {
   markPropertyAsSold,
   deleteProperty,
   updatePropertyDetails,
-  selectUserByEmail
+  selectUserByEmail,
+  updateUserCredentials
 }
