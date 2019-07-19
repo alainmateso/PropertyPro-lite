@@ -33,9 +33,9 @@ class UserController {
         data: user
       });
     }
-    return res.status(400).json({
+    return res.status(409).json({
       status: res.statusCode,
-      error: 'User already exists'
+      error: 'Email already exists'
     });
 
   }
