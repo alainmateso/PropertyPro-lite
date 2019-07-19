@@ -22,8 +22,8 @@ class ValidationMiddleware {
   static createPropertyValidation(req, res, next) {
     const schema = Joi.object().keys({
       price: Joi.number().min(1).max(999999999999).required(),
-      state: Joi.string().trim().min(2).max(50).required(),
-      city: Joi.string().trim().min(2).max(50).required(),
+      state: Joi.string().trim().regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, 'State format').min(3).required(),
+      city: Joi.string().trim().regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, 'City format').min(3).required(),
       address: Joi.string().trim().min(2).max(50).required(),
       type: Joi.string().trim().regex(/^(1 bedroom|2 bedrooms|3 bedrooms|4 bedrooms|5 bedrooms|Villa|Apartment|Others)$/, 'property type').required()
     });
@@ -35,8 +35,8 @@ class ValidationMiddleware {
     const schema = Joi.object().keys({
       id: Joi.number().min(1).max(999999999999),
       price: Joi.number().min(1).max(999999999999).required(),
-      state: Joi.string().trim().min(2).max(50).required(),
-      city: Joi.string().trim().min(2).max(50).required(),
+      state: Joi.string().trim().regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, 'State format').min(3).required(),
+      city: Joi.string().trim().regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, 'City format').min(3).required(),
       address: Joi.string().trim().min(2).max(50).required(),
       type: Joi.string().trim().regex(/^(1 bedroom|2 bedrooms|3 bedrooms|4 bedrooms|5 bedrooms|Villa|Apartment|Others)$/, 'property type').required()
     });
@@ -47,8 +47,8 @@ class ValidationMiddleware {
   static userSignUpValidation(req, res, next) {
     const schema = Joi.object().keys({
       email: Joi.string().email().required(),
-      first_name: Joi.string().alphanum().trim().min(3).required(),
-      last_name: Joi.string().alphanum().trim().min(3).required(),
+      first_name: Joi.string().trim().regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, 'Name format').min(3).required(),
+      last_name: Joi.string().trim().regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, 'Name format').min(3).required(),
       password: Joi.string().min(6).max(50).required(),
       phoneNumber: Joi.number().required(),
       address: Joi.string().trim().min(2).max(50).required(),
