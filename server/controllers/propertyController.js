@@ -105,7 +105,6 @@ class PropertyController {
 	static async postNewProperty(req, res) {
 		const { price, state, city, address, type } = req.body;
 		let { rows } = await queryExecutor(selectUserByEmail, [req.user.userEmail])
-		console.log(rows)
 		const owner = rows[0].id;
 		if (!req.files.image) {
 			return res.status(400).json({
