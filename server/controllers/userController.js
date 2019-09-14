@@ -47,15 +47,15 @@ class UserController {
     const { email, password } = req.body;
     const credentials = [email, password]
     const { rows, rowCount } = await queryExecutor(loginUser, credentials)
-    const [row] = rows;
-    const userEmail = row.email;
-    const token = jwt.sign({ userEmail }, user_secret, { expiresIn: '24h' });
     if (rowCount == 0) {
       return res.status(400).json({
         status: res.statusCode,
         message: 'Invalid email or password'
       })
     }
+    const [row] = rows;
+    const userEmail = row.email;
+    const token = jwt.sign({ userEmail }, user_secret, { expiresIn: '24h' });
     const [results] = rows;
     const user = omit(results, 'password');
     user.token = token
