@@ -37,6 +37,7 @@ const db_init = async () => {
     await queryExecutor(createPropertyTable);
     await queryExecutor(createUserAdmin, newUser);
     await queryExecutor(postNewProperty, property);
+    console.log('Database Initialization Successful')
   } catch (error) {
     throw error;
   }

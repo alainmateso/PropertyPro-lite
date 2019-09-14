@@ -13,7 +13,8 @@ const {
 	postNewProperty,
 	markPropertyAsSold,
 	deleteProperty,
-	updatePropertyDetails
+	updatePropertyDetails,
+	selectUserByEmail
 } = queries
 
 const { queryExecutor } = QueryExecutor
@@ -103,7 +104,9 @@ class PropertyController {
 
 	static async postNewProperty(req, res) {
 		const { price, state, city, address, type } = req.body;
-		const owner = req.user.rows[0].id;
+		let { rows } = await queryExecutor(selectUserByEmail, [req.user.userEmail])
+		console.log(rows)
+		const owner = rows[0].id;
 		if (!req.files.image) {
 			return res.status(400).json({
 				status: res.statusCode,
@@ -133,6 +136,8 @@ class PropertyController {
 
 	static async markPropertyAsSold(req, res) {
 		const id = req.params.id;
+		const { rows:row } = await queryExecutor(selectUserByEmail, [req.user.userEmail])
+		const userId = row[0].id;
 		const { rows, rowCount } = await queryExecutor(getSpecificProperty, [id])
 		if (rowCount == 0) {
 			return res.status(404).json({
@@ -142,8 +147,6 @@ class PropertyController {
 		}
 		const [results] = rows
 		const owner = results.owner
-		const [user] = req.user.rows
-		const userId = user.id
 		if (owner != userId) {
 			return res.status(403).json({
 				status: res.statusCode,
@@ -165,6 +168,8 @@ class PropertyController {
 
 	static async deleteProperty(req, res) {
 		const id = req.params.id;
+		const { rows:row } = await queryExecutor(selectUserByEmail, [req.user.userEmail])
+		const userId = row[0].id;
 		const { rows, rowCount } = await queryExecutor(getSpecificProperty, [id])
 		if (rowCount == 0) {
 			return res.status(404).json({
@@ -174,8 +179,6 @@ class PropertyController {
 		}
 		const [results] = rows
 		const owner = results.owner
-		const [user] = req.user.rows
-		const userId = user.id
 		if (owner != userId) {
 			return res.status(403).json({
 				status: res.statusCode,
@@ -196,6 +199,8 @@ class PropertyController {
 	static async updatePropertyDetails(req, res) {
 		const { price, state, city, address, type } = req.body
 		const id = req.params.id;
+		const { rows:row } = await queryExecutor(selectUserByEmail, [req.user.userEmail])
+		const userId = row[0].id;
 		const { rows, rowCount } = await queryExecutor(getSpecificProperty, [id])
 		if (rowCount == 0) {
 			return res.status(404).json({
@@ -205,8 +210,6 @@ class PropertyController {
 		}
 		const [results] = rows
 		const owner = results.owner
-		const [user] = req.user.rows
-		const userId = user.id
 		if (owner != userId) {
 			return res.status(403).json({
 				status: res.statusCode,

@@ -24,7 +24,9 @@ class UserController {
     if (rowCount == 0) {
       const newUser = [email, first_name, last_name, password, phoneNumber, address]
       const { rows } = await queryExecutor(createUserAccount, newUser)
-      const token = jwt.sign({ rows }, user_secret, { expiresIn: '24h' });
+      const [row] = rows;
+      const userEmail = row.email;
+      const token = jwt.sign({ userEmail }, user_secret, { expiresIn: '24h' });
       const [results] = rows;
       const user = omit(results, 'password');
       user.token = token
@@ -45,7 +47,9 @@ class UserController {
     const { email, password } = req.body;
     const credentials = [email, password]
     const { rows, rowCount } = await queryExecutor(loginUser, credentials)
-    const token = jwt.sign({ rows }, user_secret, { expiresIn: '24h' });
+    const [row] = rows;
+    const userEmail = row.email;
+    const token = jwt.sign({ userEmail }, user_secret, { expiresIn: '24h' });
     if (rowCount == 0) {
       return res.status(400).json({
         status: res.statusCode,
