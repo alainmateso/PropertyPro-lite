@@ -14,7 +14,8 @@ const {
 	markPropertyAsSold,
 	deleteProperty,
 	updatePropertyDetails,
-	selectUserByEmail
+	selectUserByEmail,
+	selectUserById
 } = queries
 
 const { queryExecutor } = QueryExecutor
@@ -31,7 +32,12 @@ class PropertyController {
 	// get all listed properties
 
 	static async getAllProperties(req, res) {
+		let ownerName =[]
 		const { rows, rowCount } = await queryExecutor(getProperties)
+		
+		const userId = rows[0].owner
+		const { rows:row } = await queryExecutor(selectUserById, [userId])
+		console.log(row);
 		if (rowCount == 0) {
 			return res.status(404).json({
 				status: res.statusCode,
