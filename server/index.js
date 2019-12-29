@@ -2,6 +2,7 @@
 /* eslint-disable indent */
 /* eslint-disable no-console */
 import express from 'express';
+import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import documentation from '../apiDocumentation.json';
 import dotENV from 'dotenv';
@@ -13,6 +14,7 @@ dotENV.config();
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
